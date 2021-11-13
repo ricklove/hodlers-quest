@@ -45,14 +45,14 @@ contract NftContract is IERC165
 
     // Metadata ---
     function name() public pure override(IERC721Metadata) returns (string memory) {
-        return 'RickLove';
+        return 'HODLersQuest.eth';
     }
 
     function symbol() public pure override(IERC721Metadata) returns (string memory) {
-        return 'RICKLOVE';
+        return 'HODLERSQUEST';
     }
 
-    string private _baseURI = 'https://ricklove.me/art/_metadata/main/';
+    string private _baseURI = 'https://hodlersquest.xyz/_metadata/main/';
     function setBaseURI(string memory baseURI) public onlyArtist {
         _baseURI = baseURI;
     }
