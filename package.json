@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "An NFT Adventure",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ricklove/hodlers-quest.git"
@@ -16,6 +13,9 @@
     "url": "https://github.com/ricklove/hodlers-quest/issues"
   },
   "homepage": "https://github.com/ricklove/hodlers-quest#readme",
+  "scripts": {
+    "start": "cd ./projects/hodlers-quest-react && npm run start"
+  },
   "workspaces": [
     "./packages/*"
   ],
