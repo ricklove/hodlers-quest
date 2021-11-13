@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "name": "@hodlers-quest/common-client",
+    "version": "1.0.0",
+    "dependencies": {}
+}

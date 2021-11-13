@@ -1,1 +1,3 @@
-# hodlers-quest
+# HODLer's Quest
+
+An NFT Adventure

@@ -1,0 +1,30 @@
+{
+  "name": "hodlers-quest",
+  "version": "1.0.0",
+  "description": "An NFT Adventure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricklove/hodlers-quest.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ricklove/hodlers-quest/issues"
+  },
+  "homepage": "https://github.com/ricklove/hodlers-quest#readme",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "devDependencies": {
+    "@rushstack/eslint-config": "^2.4.0",
+    "eslint": "~7.32.0",
+    "eslint-plugin-import-quotes": "~0.0.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-unused-imports": "^1.1.4",
+    "typescript": "~4.3.5"
+  }
+}
