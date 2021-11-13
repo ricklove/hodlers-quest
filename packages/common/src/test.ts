@@ -1,1 +1,1 @@
-export const commonTest = `test`;
+export const commonTest = `test 2`;
