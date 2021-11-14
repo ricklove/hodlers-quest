@@ -15,21 +15,26 @@
   "homepage": "https://github.com/ricklove/hodlers-quest#readme",
   "scripts": {
     "start": "cd ./projects/hodlers-quest-react && npm run start",
+    "build:client": "(cd ./projects/hodlers-quest-react && npm run build) && (cd ../../ && npm run publish:client)",
+    "publish:client": "copyfiles -e data/**/* -u 3 ./projects/hodlers-quest-react/build/**/* ./_release/web",
     "lint": "run-s lint:common lint:common-web lint:react",
     "lint:common": "cd ./packages/common && eslint src --ext .ts,.tsx --fix",
-    "lint:common-web": "cd ./packages/common-web && eslint src --ext .ts,.tsx --fix",
-    "lint:react": "cd ./projects/hodlers-quest-react && eslint src --ext .ts,.tsx --fix"
+    "lint:common-client": "cd ./packages/common-client && eslint src --ext .ts,.tsx --fix",
+    "lint:client": "cd ./projects/hodlers-quest-react && eslint src --ext .ts,.tsx --fix"
   },
   "workspaces": [
     "./packages/*"
   ],
   "devDependencies": {
     "@rushstack/eslint-config": "^2.4.0",
+    "concurrently": "^6.2.1",
+    "copyfiles": "^2.4.1",
     "eslint": "~7.32.0",
     "eslint-plugin-import-quotes": "~0.0.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^1.1.4",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "typescript": "~4.3.5"
   }
 }

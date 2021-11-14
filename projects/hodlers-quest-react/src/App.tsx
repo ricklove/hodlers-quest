@@ -1,27 +1,43 @@
 import React from 'react';
-import './App.css';
-import { commonTestClient } from '@hodlers-quest/common-client';
-import logo from './logo.svg';
+import { Layout } from './components/layout';
+import { HomePage } from './pages/home-page';
 
-function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload. {commonTestClient}
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+export const App = () => {
+return (
+  <Layout>
+      <Routing/>
+  </Layout>
   );
-}
+};
 
-export default App;
+  const Routing = (_props: {}) => {
+    const route = window.location.pathname.split(`/`);
+    // const projectKey = route[1] ?? undefined;
+    // const tokenId = route[2] ?? undefined;
+
+    console.log(`route`, { route });
+
+    // if (projectKey && tokenId){
+    //   return (
+    //     <div className='App'>
+    //       <div className='nft-container-single'>
+    //         <NftLoader projectKey={projectKey} tokenId={tokenId}/>
+    //       </div>
+    //     </div>
+    //   );
+    // }
+
+    // if (projectKey){
+    //   return (
+    //     <div className='App'>
+    //       <NftProjectLoader projectKey={projectKey}/>
+    //     </div>
+    //   );
+    // }
+
+    return (
+      <div className='App'>
+          <HomePage/>
+      </div>
+    );
+  };
