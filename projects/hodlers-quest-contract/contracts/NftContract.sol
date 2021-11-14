@@ -197,7 +197,7 @@ contract NftContract is IERC165
      * - Also useful to pause all minting (set gas price min > max)
      */
     uint256 private _gasPriceMin = 20 gwei;
-    uint256 private _gasPriceMax = 140 gwei;
+    uint256 private _gasPriceMax = 200 gwei;
     function getGasPrice() public view returns(uint256, uint256) {
         return (_gasPriceMin,_gasPriceMax);
     }
