@@ -15,6 +15,7 @@
   "homepage": "https://github.com/ricklove/hodlers-quest#readme",
   "scripts": {
     "start": "cd ./projects/hodlers-quest-react && npm run start",
+    "build": "npm run build:client",
     "build:client": "(cd ./projects/hodlers-quest-react && npm run build) && (cd ../../ && npm run publish:client)",
     "publish:client": "copyfiles -e data/**/* -u 3 ./projects/hodlers-quest-react/build/**/* ./_release/web",
     "lint": "run-s lint:common lint:common-web lint:react",
