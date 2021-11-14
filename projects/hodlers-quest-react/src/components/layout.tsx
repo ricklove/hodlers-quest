@@ -11,6 +11,11 @@ export const Layout = ({ children }: { children: JSX.Element }) => {
                     </a>
                 </div>
                 <div style={{ flex: 1 }} />
+                <div style={{ fontSize: 24, marginLeft: 16 }}>
+                    <a href='https://discord.gg/vyuBsGAneW' target='_blank' rel='noreferrer'>
+                        {`Discord`}
+                    </a>
+                </div>
             </div>
             <div>
                 {children}
