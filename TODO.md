@@ -1,28 +1,37 @@
-- React Site
+- [ ] React Site
     - [x] Create home page
-    - Publish to Netlify
+    - [x] Publish to Netlify
+    - [ ] Favicon, metadata, seo
 
-- Setup Netlify
-    - Custom domain - HODLersQuest.xyz
-    - Test
+- [ ] Setup Netlify
+    - [x] Custom domain - HODLersQuest.xyz
+    - [ ] Verify
 
-- Generate NFT w/ interactive game
-    - Generate image
-    - Generate json
-    - Generate iframe page
-    - Publish generated assets into react site files
+- [x] Setup Discord
+    - [x] Create Discord Server
+    - [x] Link to discord server on web
+    - [x] Setup Roles
+    - [x] Setup channels
+        - [x] Welcome
+        - [x] Announcements
+        - [x] General
 
-- Publish Test Contract
-    - Deploy to testnet
-    - Test on open sea
+- [ ] Generate NFT w/ interactive game
+    - [ ] Generate image
+    - [ ] Generate json
+    - [ ] Generate iframe page
+    - [ ] Publish generated assets into react site files
 
-- React Site - Mint NFT
-    - Select Action & Mint NFT on web site
+- [ ] Publish Test Contract
+    - [ ] Deploy to testnet
+    - [ ] Test on open sea
 
-- Publish Contract to Main net
-    - Create contract publishing page (use MetaMask/Ledger Auth instead of privateKey)
-    - Create holdersquest.eth wallet
-        - Transfer holdersquest.eth to publishing wallet
-        - Setup holdersquest.eth and reverse ENS
-    - Publish from wallet using publishing page
+- [ ] React Site - Mint NFT
+    - [ ] Select Action & Mint NFT on web site
 
+- [ ] Publish Contract to Main net
+    - [ ] Create contract publishing page (use MetaMask/Ledger Auth instead of privateKey)
+    - [ ] Create holdersquest.eth wallet
+        - [ ] Transfer holdersquest.eth to publishing wallet
+        - [ ] Setup holdersquest.eth and reverse ENS
+    - [ ] Publish from wallet using publishing page
