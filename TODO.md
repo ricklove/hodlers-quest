@@ -17,17 +17,20 @@
         - [x] General
 
 - [ ] Generate NFT w/ interactive game
+    - [ ] Generate iframe page
     - [ ] Generate image
     - [ ] Generate json
-    - [ ] Generate iframe page
     - [ ] Publish generated assets into react site files
 
 - [ ] Publish Test Contract
     - [ ] Deploy to testnet
     - [ ] Test on open sea
 
-- [ ] React Site - Mint NFT
-    - [ ] Select Action & Mint NFT on web site
+- [ ] Site: Mint Action NFT
+    - [ ] View & Select Game Action
+    - [ ] Mint Action NFT on web site
+    - [ ] View NFT Reveal Countdown
+    - [ ] View Final NFT Artwork after release
 
 - [ ] Publish Contract to Main net
     - [ ] Create contract publishing page (use MetaMask/Ledger Auth instead of privateKey)
