@@ -14,14 +14,22 @@
   },
   "homepage": "https://github.com/ricklove/hodlers-quest#readme",
   "scripts": {
-    "start": "cd ./projects/hodlers-quest-react && npm run start",
-    "build": "npm run build:client",
+    "start": "concurrently \"npm run start:art\" \"npm run start:client\"",
+    "lint": "run-s lint:common lint:common-web lint:react",
+    "build": "npm run build:art && npm run build:client",
+    "---client": "",
+    "start:client": "cd ./projects/hodlers-quest-react && npm run start",
+    "lint:client": "cd ./projects/hodlers-quest-react && eslint src --ext .ts,.tsx --fix",
     "build:client": "(cd ./projects/hodlers-quest-react && npm run build) && (cd ../../ && npm run publish:client)",
     "publish:client": "copyfiles -e data/**/* -u 3 ./projects/hodlers-quest-react/build/**/* ./_release/web",
-    "lint": "run-s lint:common lint:common-web lint:react",
+    "---art": "",
+    "start:art": "cd ./packages/hodlers-quest-art && npx tsc -w",
+    "lint:art": "cd ./packages/hodlers-quest-art && eslint src --ext .ts,.tsx --fix",
+    "build:art": "cd ./packages/hodlers-quest-art && npx tsc",
+    "---other": "",
     "lint:common": "cd ./packages/common && eslint src --ext .ts,.tsx --fix",
     "lint:common-client": "cd ./packages/common-client && eslint src --ext .ts,.tsx --fix",
-    "lint:client": "cd ./projects/hodlers-quest-react && eslint src --ext .ts,.tsx --fix"
+    "---end": ""
   },
   "workspaces": [
     "./packages/*"
