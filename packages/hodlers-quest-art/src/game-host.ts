@@ -1,6 +1,6 @@
 import type p5 from 'p5';
 import { pixelFontBase64_pressStart } from './fonts/pixel-font-press-start';
-import { drawGame, GameCache, GameState } from './game-engine';
+import { drawGame, GameCache, GameSettings, GameState } from './game-engine';
 import { createNftAdventure_nftTextAdventure } from './story';
 import { getGameStepFromTokenId } from './token-id';
 import { createEventProvider, EventProvider } from './utils/event-provider';
@@ -35,6 +35,10 @@ export const gameHost = {
 
         const gameCache = {} as GameCache;
         let font = null as null | p5.Font;
+
+        const gameSettings: GameSettings = {
+            artPath: `/media/art/`,
+        };
 
         return createP5((s: p5) => {
             s.setup = () => {
@@ -86,8 +90,9 @@ export const gameHost = {
                     gameData: nftAdventure_nftDungeon,
                     gameState,
                     gameCache,
-                    seed: tokenId,
+                    tokenId,
                     timeMs,
+                    settings: gameSettings,
                 });
 
                 gameState = result.gameState;

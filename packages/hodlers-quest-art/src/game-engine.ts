@@ -11,6 +11,10 @@ type GameData = {
     story: GameStep[];
     items: readonly GameItem [];
 };
+export type GameSettings = {
+    artPath: string;
+};
+
 export type GameCache = {
     images?: { [base64: string]: GameImage };
 };
@@ -21,9 +25,10 @@ export const drawGameStep = ({
     s: sRaw,
     timeMs: timeMsRaw,
     frame,
-    seed,
+    tokenId,
     input,
     mode,
+    settings,
 }: {
     step: GameStep;
     gameCache: GameCache;
@@ -31,9 +36,10 @@ export const drawGameStep = ({
     s: p5;
     timeMs: number;
     frame: { width: number; height: number };
-    seed: string;
+    tokenId: string;
     input: string;
     mode: 'step' | 'response';
+    settings: GameSettings;
 }): { done: boolean } => {
 
     if (!step){ return { done: true };}
@@ -102,8 +108,8 @@ export const drawGameStep = ({
 
         const timeMs = timeMsRaw;
 
-        const { random: randomSlow } = createRandomGenerator(`${seed}${step}${Math.floor(timeMs / 250)}`);
-        const { random: random } = createRandomGenerator(`${seed}${step}${Math.floor(timeMs / 50)}`);
+        const { random: randomSlow } = createRandomGenerator(`${tokenId}${step}${Math.floor(timeMs / 250)}`);
+        const { random: random } = createRandomGenerator(`${tokenId}${step}${Math.floor(timeMs / 50)}`);
         const shouldGlitch = step.glitch && randomSlow() > (1.0 - step.glitch.ratio);
 
         const charsPerSecond = 30;
@@ -248,6 +254,7 @@ export const drawGameStep = ({
         const drawArt = (art: undefined | GameArt, alwaysDraw: boolean) => {
             if (art?.svgName){
                 // TODO: Draw Svg Art
+
             }
 
             // if (art?.ascii){
@@ -579,16 +586,18 @@ export const drawGame = ({
     gameCache,
     s,
     frame,
-    seed,
+    tokenId,
     timeMs,
+    settings,
 }: {
     gameState: GameState;
     gameData: GameData;
     gameCache: GameCache;
     s: p5;
     frame: { width: number; height: number };
-    seed: string;
+    tokenId: string;
     timeMs: number;
+    settings: GameSettings;
 }): { done: boolean; gameState: GameState } => {
 
 
@@ -615,7 +624,8 @@ export const drawGame = ({
 
     const result = drawGameStep({
         step, gameCache, actionIndex, s,
-        timeMs, frame, seed, input, mode,
+        timeMs, frame, tokenId, input, mode,
+        settings,
     });
 
     if (input.endsWith(`\n`) && input.trim()){
