@@ -1,5 +1,5 @@
 export type GameArt = {
-    timeMs?: number;
+    // timeMs?: number;
     svgName?: string;
 };
 export type GameStepAction = {

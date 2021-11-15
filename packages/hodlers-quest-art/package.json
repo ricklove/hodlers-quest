@@ -1,5 +1,11 @@
 {
     "private": true,
     "name": "@hodlers-quest/art",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "dependencies": {
+        "p5": "^1.4.0"
+    },
+    "devDependencies": {
+        "@types/p5": "^1.3.1"
+    }
 }
