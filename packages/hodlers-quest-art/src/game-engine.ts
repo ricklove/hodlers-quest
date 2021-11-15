@@ -266,10 +266,10 @@ export const drawGameStep = ({
             const isLoaded = getIsLoaded();
 
             if (!isLoaded || !image){
-                console.log(`drawSvgArt - not loaded`, { svgName, opacity, isLoaded, image });
+                // console.log(`drawSvgArt - not loaded`, { svgName, opacity, isLoaded, image });
                 return;
             }
-            console.log(`drawSvgArt - drawing`, { svgName, opacity, isLoaded, image });
+            // console.log(`drawSvgArt - drawing`, { svgName, opacity, isLoaded, image });
 
             const w = image.width;
             const h = image.height;
@@ -518,16 +518,15 @@ export const drawGameStep = ({
             const blinkTime = actionIndex != null ? 3000
                 : actionInput ? 0
                     : Number.MAX_SAFE_INTEGER;
-            if (!drawWaitMessage(blinkTime, `>`, `> |`, drawActionInputText, {
+            if (!drawWaitMessage(blinkTime, `>`, `> _`, drawActionInputText, {
                 color: s.color(100, 255, 100),
                 fontSize: FONT_SIZE_M,
             }).done){
                 return { done: false };
             }
 
-            const action = actions[actionIndex ?? -1];
-            const commandText = action?.name ?? actionInput?.trimEnd() ?? ``;
-            if (!drawNextPart(`> ${commandText}`, drawActionInputText, {
+            const commandText = actionInput?.trimEnd() ?? ``;
+            if (!drawWaitMessage(Number.MAX_SAFE_INTEGER, `> ${commandText}`, `> ${commandText}_`, drawActionInputText, {
                 color: s.color(100, 255, 100),
                 fontSize: FONT_SIZE_M,
             }).done){

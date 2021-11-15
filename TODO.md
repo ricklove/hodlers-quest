@@ -18,7 +18,7 @@
 
 - [ ] Generate NFT w/ interactive game
     - [x] Import Art Files and Story
-    - [ ] Display Interactive Game
+    - [x] Display Interactive Game
     - [ ] Generate iframe page
     - [ ] Generate image
     - [ ] Generate json
