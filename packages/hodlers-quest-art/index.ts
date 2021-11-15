@@ -1,2 +1,1 @@
-import { commonTest } from './src/test';
-export { commonTest };
+export { createNftAdventure_nftTextAdventure } from './src/story';

@@ -1,10 +1,10 @@
 import { GameStep } from './types';
 
 const metadata = {
-    key: `nft-text-adventure`,
-    name: `NFT Text Adventure`,
-    description: `NFT Text Adventure is a game where actions are chosen by the NFT community`,
-    author: `Rick Love & the NFT Community`,
+    key: `hodlers-quest`,
+    name: `HODLer's Quest`,
+    description: `An Interactive NFT Art Adventure Game - https://HODLersQuest.xyz`,
+    author: `Rick Love`,
 };
 
 const items = [
