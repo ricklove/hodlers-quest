@@ -1,4 +1,5 @@
 import type p5 from 'p5';
+import { loadSvgPixelArtFromUrl } from './render/draw-svg-pixel-art';
 import { GameArt, GameStep, GameStepAction } from './types';
 import { GameImage, loadAndScaleImage } from './utils/load-image';
 import { createRandomGenerator } from './utils/random';
@@ -17,6 +18,7 @@ export type GameSettings = {
 
 export type GameCache = {
     images?: { [base64: string]: GameImage };
+    svgImages?: { [svgName: string]: { getIsLoaded: () => boolean; image: p5.Graphics } };
 };
 export const drawGameStep = ({
     step,
@@ -79,7 +81,7 @@ export const drawGameStep = ({
         text: (text: string, x: number, y: number, x2: number, y2: number) => {
             sQueue.push({ callback: () => sRaw.text(text, x, y, x2, y2), lineCount });
         },
-        image: (value: p5.Image, x: number, y: number, w: number, h: number) => {
+        image: (value: p5.Image | p5.Element, x: number, y: number, w: number, h: number) => {
             sQueue.push({ callback: () => sRaw.image(value, x, y, w, h), lineCount });
         },
         rect: (x: number, y: number, w: number, h: number) => {
@@ -250,12 +252,58 @@ export const drawGameStep = ({
 
             // lineCount += (PAD * 2 + h) / LINE_HEIGHT;
         };
+        const drawSvgArt = (svgName: string, opacity = 1) => {
+            const xTarget = PAD;
+            const yTarget = PAD + +3 + 2 * LINE_HEIGHT;
+            const wTarget = PAD * -1 + frame.width - (PAD);
+            const hTarget = PAD * -1 + frame.height - (PAD + +3 + 2 * LINE_HEIGHT);
+
+            if (!gameCache.svgImages){ gameCache.svgImages = {};}
+            if (!gameCache.svgImages[svgName]){
+                gameCache.svgImages[svgName] = loadSvgPixelArtFromUrl(sRaw, `${settings.artPath}${svgName}.svg`, tokenId, { width: wTarget, height: hTarget });
+            }
+            const { getIsLoaded, image } = gameCache.svgImages[svgName];
+            const isLoaded = getIsLoaded();
+
+            if (!isLoaded || !image){
+                console.log(`drawSvgArt - not loaded`, { svgName, opacity, isLoaded, image });
+                return;
+            }
+            console.log(`drawSvgArt - drawing`, { svgName, opacity, isLoaded, image });
+
+            const w = image.width;
+            const h = image.height;
+            const x = xTarget + Math.floor((wTarget - w) / 2);
+            const y = yTarget + Math.floor((hTarget - h) / 2);
+
+            // image.
+
+            if (opacity < 1){
+                s.tint(255, opacity * 255);
+            } else {
+                s.tint(255, 255);
+                // s.noTint();
+            }
+
+            s.image(image,
+                x,
+                y,
+                w,
+                h,
+            );
+
+            // s.noTint();
+
+            // if (opacity < 1){
+            //     s.noStroke();
+            //     s.fill(getBackgroundColor(opacity));
+            //     s.rect(x, y, w, h);
+            // }
+
+            // lineCount += (PAD * 2 + h) / LINE_HEIGHT;
+        };
 
         const drawArt = (art: undefined | GameArt, alwaysDraw: boolean) => {
-            if (art?.svgName){
-                // TODO: Draw Svg Art
-
-            }
 
             // if (art?.ascii){
             //     if (!drawWaitMessage(5000, art.ascii, art.ascii, drawAsciiArtText, {
@@ -283,6 +331,24 @@ export const drawGameStep = ({
             //         return { done: false };
             //     }
             // }
+
+            if (art?.svgName){
+                const FADE_CHAR_TIME = 2 * charsPerSecond;
+                const DISPLAY_CHAR_TIME = 5 * charsPerSecond;
+
+                const fadeInOpacity = charLength > FADE_CHAR_TIME ? 1 : (charLength / FADE_CHAR_TIME);
+                charLength -= DISPLAY_CHAR_TIME;
+                const fadeOutOpacity = charLength <= 0 ? 1 : (1.0 - 0.85 * Math.min(1, charLength / FADE_CHAR_TIME));
+
+                const opacity = Math.min(fadeInOpacity, fadeOutOpacity);
+                if (alwaysDraw || charLength < 0){
+                    drawSvgArt(art.svgName, opacity);
+                }
+
+                if (charLength < 0){
+                    return { done: false };
+                }
+            }
         };
 
 
