@@ -21,7 +21,7 @@ module.exports = {
       {
         selector: 'default',
         format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
-        leadingUnderscore: 'allow',
+        leadingUnderscore: 'allowSingleOrDouble',
         filter: {
           regex: [
             // This is a special exception for naming patterns that use an underscore to separate two camel-cased
