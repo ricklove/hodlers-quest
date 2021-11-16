@@ -17,7 +17,8 @@
     "start": "concurrently \"npm run start:common\" \"npm run start:art\" \"npm run start:client\"",
     "lint": "run-s lint:common lint:art lint:client",
     "build": "run-s build:common build:art build:client",
-    "build:all": "run-s build:common build:art copy:art build:client start build:metadata copy:metadata",
+    "build:all": "run-s build:common build:art copy:art build:client build:all:metadata",
+    "build:all:metadata": "run-p start:client build:metadata",
     "---common": "",
     "start:common": "cd ./packages/common && npx tsc -w",
     "lint:common": "cd ./packages/common && eslint src --ext .ts,.tsx --fix",
@@ -33,7 +34,7 @@
     "build:client": "(cd ./projects/hodlers-quest-react && npm run build) && (cd ../../ && npm run publish:client)",
     "publish:client": "copyfiles -u 3 ./projects/hodlers-quest-react/build/**/* ./_release/web",
     "---metadata": "",
-    "build:metadata": "cd ./packages/metadata-builder && npm run build",
+    "build:metadata": "cd ./packages/metadata-builder && npm run build && npm run copy:metadata",
     "copy:metadata": "copyfiles -u 3 ./packages/metadata-builder/out/**/* ./_release/web/_metadata/",
     "---end": ""
   },
