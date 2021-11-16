@@ -42,6 +42,7 @@ export const createScreenshots = async ({
     filePaths.push(filePath);
     await page.screenshot({
       path: filePath,
+      type: `png`,
     });
   }
 

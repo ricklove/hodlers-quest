@@ -17,8 +17,8 @@ export const run = async () => {
             tokenIds,
             destDir: path.resolve(`./out/nft/images`),
             size: {
-                width: 300,
-                height: 300,
+                width: 600,
+                height: 600,
             },
         });
     } catch (err){
