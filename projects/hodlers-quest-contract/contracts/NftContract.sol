@@ -52,7 +52,7 @@ contract NftContract is IERC165
         return 'HODLERSQUEST';
     }
 
-    string private _baseURI = 'https://hodlersquest.xyz/_metadata/main/';
+    string private _baseURI = 'https://hodlersquest.xyz/_metadata/nft/metadata/';
     function setBaseURI(string memory baseURI) public onlyArtist {
         _baseURI = baseURI;
     }
