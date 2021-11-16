@@ -33,6 +33,7 @@ export const colorTraitParts = {
 } as const;
 
 // export type VersionDate = `${number}-${number}-${number}`;
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export type VersionDate = string & { __type: '${number}-${number}-${number}' };
 export const versions = { _2021_08_21: `2021-08-21` as VersionDate };
 
