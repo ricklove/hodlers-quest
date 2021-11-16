@@ -16,7 +16,8 @@
   "scripts": {
     "start": "concurrently \"npm run start:common\" \"npm run start:art\" \"npm run start:client\"",
     "lint": "run-s lint:common lint:art lint:client",
-    "build": "npm run build:common && npm run build:art && npm run build:client",
+    "build": "run-s build:common build:art build:client",
+    "build:all": "run-s build:common build:art copy:art build:client build:metadata copy:metadata",
     "---common": "",
     "start:common": "cd ./packages/common && npx tsc -w",
     "lint:common": "cd ./packages/common && eslint src --ext .ts,.tsx --fix",

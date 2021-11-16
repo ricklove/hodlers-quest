@@ -4,7 +4,7 @@ import { createScreenshots } from './create-screenshot';
 export const run = async () => {
     const PROJECT_BUCKET_SIDE = 1000000;
     const PROJECT_ID_MAX = 3;
-    const PROJECT_TOKEN_COUNT = 10;
+    const PROJECT_TOKEN_COUNT = 100;
 
     const THREADS = 1;
 
