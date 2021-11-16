@@ -22,6 +22,10 @@ export const gameHost = {
         createP5: (callback: (s: p5) => void) => void;
         showKeyboard: () => void;
     }) => {
+
+        // const RENDERER: p5.RENDERER = isStaticImage ? `p2d` : `webgl`;
+        const RENDERER: p5.RENDERER = `p2d`;
+
         const TARGET_SIZE = 300 * canvasScale;
         const SMALL_SIZE = 300 * canvasScale;
         const size = window.innerWidth > TARGET_SIZE && window.innerHeight > TARGET_SIZE ? TARGET_SIZE : SMALL_SIZE;
@@ -89,7 +93,7 @@ export const gameHost = {
             s.setup = () => {
                 console.log(`renderArt:createP5:s.setup`);
 
-                const result = s.createCanvas(size, size, `webgl`);
+                const result = s.createCanvas(size, size, RENDERER);
                 font = s.loadFont(pixelFontBase64_pressStart);
 
                 const canvasId = `${Math.random()}`;
@@ -119,7 +123,9 @@ export const gameHost = {
                 globalControllerState.onDrawStart?.();
 
                 // WEBGL
-                s.translate(-size / 2, -size / 2, 0);
+                if (RENDERER === `webgl`){
+                    s.translate(-size / 2, -size / 2, 0);
+                }
                 if (font) { s.textFont(font); }
 
                 // if (isDone){ return; }
