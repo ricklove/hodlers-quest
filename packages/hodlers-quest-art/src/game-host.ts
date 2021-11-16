@@ -12,16 +12,18 @@ export const gameHost = {
     renderGame: ({
         tokenId = `0`,
         isStaticImage,
+        canvasScale = 1,
         createP5,
         showKeyboard,
     }: {
         tokenId: string;
         isStaticImage: boolean;
+        canvasScale: number;
         createP5: (callback: (s: p5) => void) => void;
         showKeyboard: () => void;
     }) => {
-        const TARGET_SIZE = 300;
-        const SMALL_SIZE = 300;
+        const TARGET_SIZE = 300 * canvasScale;
+        const SMALL_SIZE = 300 * canvasScale;
         const size = window.innerWidth > TARGET_SIZE && window.innerHeight > TARGET_SIZE ? TARGET_SIZE : SMALL_SIZE;
 
         const windowGlobalController = window as unknown as GlobalArtControllerWindow;
@@ -80,6 +82,7 @@ export const gameHost = {
 
         const gameSettings: GameSettings = {
             artPath: `/media/art/`,
+            canvasScale,
         };
 
         return createP5((s: p5) => {

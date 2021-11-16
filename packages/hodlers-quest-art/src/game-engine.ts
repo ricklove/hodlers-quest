@@ -14,6 +14,7 @@ type GameData = {
 };
 export type GameSettings = {
     artPath: string;
+    canvasScale: number;
 };
 
 export type GameCache = {
@@ -99,13 +100,14 @@ export const drawGameStep = ({
         },
     };
 
-    const FONT_SIZE_L = 12;
-    const FONT_SIZE_M = 8;
-    const FONT_SIZE_S = 6;
-    const LINE_HEIGHT = 20;
+    const CANVAS_SCALE = settings.canvasScale;
+    const FONT_SIZE_L = 12 * CANVAS_SCALE;
+    const FONT_SIZE_M = 8 * CANVAS_SCALE;
+    const FONT_SIZE_S = 6 * CANVAS_SCALE;
+    const LINE_HEIGHT = 20 * CANVAS_SCALE;
     const LINE_HEIGHT_MULTIPLIER = 1.4;
-    const PAD = 4;
-    const LINE_PAD = 12;
+    const PAD = 4 * CANVAS_SCALE;
+    const LINE_PAD = 12 * CANVAS_SCALE;
     const actionCount = step.actions.length;
 
     let lineCount = 0.0;
