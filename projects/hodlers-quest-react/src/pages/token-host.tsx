@@ -27,7 +27,7 @@ export const TokenHost = ({ tokenId }: { tokenId: string }) => {
         <div>
             <div id={id}
                 style={{ width: 300, height: 300 }} />
-            <input type='text' ref={inputKeyboardRef} style={{ opacity: 0, height: 0, width: 0 }} />
+            <input type='text' ref={inputKeyboardRef} style={{ opacity: 0.1, fontSize: 16, position: `fixed`, bottom: 0, right: 0 }} />
         </div>
     );
 };
