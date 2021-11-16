@@ -3,12 +3,12 @@ import { ColorTrait, colorTraitParts, colorTraits, versions } from '../traits/tr
 import { colorFormat, HslColor, RgbHexColor } from '../utils/color-format';
 import { RgbHex, StopStyleString, SvgDoc, SvgElement, SvgElementStyle } from './inkscape-svg-types';
 
-export const transformSvgWithTraits = (svgDoc: SvgDoc, seed: string) => {
+export const transformSvgWithTraits = (svgDoc: SvgDoc, tokenId: string) => {
 
     const {
         selectedTraits,
         selectedColors,
-    } = selectTraits(seed, versions._2021_08_21);
+    } = selectTraits(tokenId, versions._2021_08_21);
 
     // console.log(`transformSvgWithTraits`, {
     //     selectedTraits: Object.entries(selectedTraits).map(x => `${x[0]}:${x[1].traitKey}`),

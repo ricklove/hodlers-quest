@@ -26,7 +26,7 @@ const selectTrait = <
     traitContainer: T,
     traitName: TTraitName,
     version: VersionDate,
-    seed: string,
+    tokenId: string,
     forcedSelections: TraitSelections,
 ): {
     traitKey: keyof T[TTraitName];
@@ -47,7 +47,7 @@ const selectTrait = <
         return {
             traitKey: forcedTraitKey as keyof T[TTraitName],
             trait: forcedOption.value as T[TTraitName][keyof T[TTraitName]],
-            createRandomGenerator: (key: string) => createRandomGenerator(`${seed}-${traitName}-${key}`),
+            createRandomGenerator: (key: string) => createRandomGenerator(`${tokenId}-${traitName}-${key}`),
         };
     }
 
@@ -65,7 +65,7 @@ const selectTrait = <
         - (b.value.rarity ?? rarityForNonRare));
 
 
-    const { random } = createRandomGenerator(`${seed}-${traitName}`);
+    const { random } = createRandomGenerator(`${tokenId}-${traitName}`);
     const randomScore = random() * totalScore;
     // const randomScore = totalScore - 1;
 
@@ -85,33 +85,33 @@ const selectTrait = <
     return {
         traitKey: traitKey as keyof T[TTraitName],
         trait: itemAtScore.value as T[TTraitName][keyof T[TTraitName]],
-        createRandomGenerator: (key: string) => createRandomGenerator(`${seed}-${traitName}-${key}`),
+        createRandomGenerator: (key: string) => createRandomGenerator(`${tokenId}-${traitName}-${key}`),
     };
 };
 
-export const selectTraits = (seed: string, version: VersionDate) => {
+export const selectTraits = (tokenId: string, version: VersionDate) => {
     const { traits, themes, effects } = nftTextAdventureTraits;
 
-    const theme = selectTrait({ theme: themes }, `theme`, version, seed, {});
+    const theme = selectTrait({ theme: themes }, `theme`, version, tokenId, {});
     const forcedSelections = theme.trait.selections;
 
     // console.log(`selectTraits`, { theme, forcedSelections });
 
     const selectedTraits = {
         theme,
-        effect: selectTrait({ effect: effects }, `effect`, version, seed, forcedSelections),
-        humanoid: selectTrait(traits, `humanoid`, version, seed, forcedSelections),
-        hair: selectTrait(traits, `hair`, version, seed, forcedSelections),
-        facehair: selectTrait(traits, `facehair`, version, seed, forcedSelections),
-        weapon: selectTrait(traits, `weapon`, version, seed, forcedSelections),
-        clothes: selectTrait(traits, `clothes`, version, seed, forcedSelections),
-        headwear: selectTrait(traits, `headwear`, version, seed, forcedSelections),
+        effect: selectTrait({ effect: effects }, `effect`, version, tokenId, forcedSelections),
+        humanoid: selectTrait(traits, `humanoid`, version, tokenId, forcedSelections),
+        hair: selectTrait(traits, `hair`, version, tokenId, forcedSelections),
+        facehair: selectTrait(traits, `facehair`, version, tokenId, forcedSelections),
+        weapon: selectTrait(traits, `weapon`, version, tokenId, forcedSelections),
+        clothes: selectTrait(traits, `clothes`, version, tokenId, forcedSelections),
+        headwear: selectTrait(traits, `headwear`, version, tokenId, forcedSelections),
     };
 
-    const selectedColors = selectColors(seed, selectedTraits.humanoid.trait.colors);
+    const selectedColors = selectColors(tokenId, selectedTraits.humanoid.trait.colors);
 
     return {
-        seed,
+        tokenId,
         version,
         selectedTraits,
         selectedColors,
@@ -119,8 +119,8 @@ export const selectTraits = (seed: string, version: VersionDate) => {
 };
 
 
-export const selectColorInRange = (range: ColorRange, seed: string, key: string) => {
-    const { random } = createRandomGenerator(`${seed}-colors-${key}`);
+export const selectColorInRange = (range: ColorRange, tokenId: string, key: string) => {
+    const { random } = createRandomGenerator(`${tokenId}-colors-${key}`);
 
     const randomIntInRangeInclusive = (range: readonly [number, number]) =>
         Math.max(range[0], Math.min(range[1], Math.floor(range[0] + (range[1] - range[0] + 1) * random())));
@@ -134,13 +134,13 @@ export const selectColorInRange = (range: ColorRange, seed: string, key: string)
 };
 
 export const selectColors = (
-    seed: string,
+    tokenId: string,
     colorRanges: readonly ColorTraitRange[],
 ): { [colorTrait in ColorTrait]: HslColor } => {
     const selections = colorTraits.map(c => {
 
         const range = colorRanges.find(r => r.targets.some(t => t === c)) ?? colorRanges[ colorRanges.length - 1 ];
-        const { hsl } = selectColorInRange(range, seed, c);
+        const { hsl } = selectColorInRange(range, tokenId, c);
 
         return ({
             colorTrait: c,

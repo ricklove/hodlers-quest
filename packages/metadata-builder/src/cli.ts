@@ -1,5 +1,5 @@
 import path from 'path';
-import { createScreenshots } from './create-screenshot';
+import { createTokenImages } from './create-token-image';
 
 export const run = async () => {
     const PROJECT_BUCKET_SIDE = 1000000;
@@ -21,7 +21,7 @@ export const run = async () => {
         });
 
         for (const tokenIdsSlice of tokenIdsSlices){
-            await createScreenshots({
+            await createTokenImages({
                 baseUrl: `http://localhost:4201/image/0`,
                 tokenIds: tokenIdsSlice,
                 destDir: path.resolve(`./out/nft/images`),

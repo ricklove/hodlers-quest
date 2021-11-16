@@ -5,7 +5,7 @@ import puppeteer from 'puppeteer';
 
 declare const window: GlobalArtControllerWindow;
 
-export const createScreenshots = async ({
+export const createTokenImages = async ({
   baseUrl,
   tokenIds,
   destDir,
