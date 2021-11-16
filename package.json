@@ -27,6 +27,8 @@
     "lint:art": "cd ./packages/hodlers-quest-art && eslint src --ext .ts,.tsx --fix",
     "build:art": "cd ./packages/hodlers-quest-art && npx tsc",
     "copy:art": "copyfiles -u 3 ./packages/hodlers-quest-art/media/**/* ./projects/hodlers-quest-react/public/media/art",
+    "---metadata": "",
+    "build:metadata": "cd ./packages/metadata-builder && npm run build",
     "---other": "",
     "lint:common": "cd ./packages/common && eslint src --ext .ts,.tsx --fix",
     "lint:common-client": "cd ./packages/common-client && eslint src --ext .ts,.tsx --fix",
