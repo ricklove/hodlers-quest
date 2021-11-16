@@ -10,11 +10,11 @@ export const getGameStepFromTokenId = (tokenId: string) => {
             };
         }
 
-        const [stepIndexInit, actionIndexInit] = stepAction.split(`:`).map(x => parseInt(x, 10) as undefined | number);
-        console.log(`getGameStepFromTokenId`, { stepIndexInit, actionIndexInit });
+        const [stepIndex, actionIndex] = stepAction.split(`:`).map(x => parseInt(x, 10) as undefined | number);
+        console.log(`getGameStepFromTokenId`, { stepIndexInit: stepIndex, actionIndexInit: actionIndex });
         return {
-            stepIndexInit,
-            actionIndexInit,
+            stepIndex,
+            actionIndex,
         };
 };
 

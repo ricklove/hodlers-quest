@@ -1,3 +1,4 @@
+import { GlobalArtControllerWindow } from '@hodlers-quest/common';
 import type p5 from 'p5';
 import { pixelFontBase64_pressStart } from './fonts/pixel-font-press-start';
 import { drawGame, GameCache, GameSettings, GameState } from './game-engine';
@@ -23,23 +24,56 @@ export const gameHost = {
         const SMALL_SIZE = 300;
         const size = window.innerWidth > TARGET_SIZE && window.innerHeight > TARGET_SIZE ? TARGET_SIZE : SMALL_SIZE;
 
+        const windowGlobalController = window as unknown as GlobalArtControllerWindow;
+        windowGlobalController.globalArtController = {
+            loadTokenId: async (tokenIdNew) => {
+                return await new Promise((resolve) => {
+
+                    globalControllerState.onDrawStart = () => {
+                        globalControllerState.onDrawStart = null;
+
+                        const { stepIndex, actionIndex } = getGameStepFromTokenId(tokenIdNew);
+                        gameState = {
+                            timeStartMs: now(),
+                            stepIndex,
+                            actionIndex,
+                            tokenId: tokenIdNew,
+                            input: ``,
+                            mode: `step`,
+                            autoPlayMode: `step-image`,
+                        };
+                        console.log(`globalControllerState.onDrawStart`, { gameState, stepIndex, actionIndex });
+                    };
+                    globalControllerState.onDrawEnd = () => {
+                        globalControllerState.onDrawEnd = null;
+                        resolve();
+                        console.log(`globalControllerState.onDrawEnd`, { gameState });
+                    };
+                });
+            },
+        };
+        const globalControllerState = {
+            onDrawStart: null as null | (() => void),
+            onDrawEnd: null as null | (() => void),
+        };
+
         let canvas = null as null | HTMLCanvasElement;
         let eventProvider = null as null | EventProvider;
-        const { stepIndexInit, actionIndexInit } = getGameStepFromTokenId(tokenId);
+        const { stepIndex: stepIndexInit, actionIndex: actionIndexInit } = getGameStepFromTokenId(tokenId);
 
         const now = () => {
             return Date.now();
         };
 
-        let gameState = {
-            timeStart: now(),
+        let gameState: GameState = {
+            timeStartMs: now(),
             stepIndex: stepIndexInit,
             actionIndex: actionIndexInit,
+            tokenId,
             input: ``,
-            isRespondingToInput: false,
             mode: `step`,
             autoPlayMode: isStaticImage ? `step-image` : (stepIndexInit ?? 0) > 0 ? `play` : false,
-        } as GameState;
+        };
 
         const gameCache = {} as GameCache;
         let font = null as null | p5.Font;
@@ -79,6 +113,7 @@ export const gameHost = {
             };
             s.draw = () => {
                 // console.log(`renderArt:createP5:s.draw`);
+                globalControllerState.onDrawStart?.();
 
                 // WEBGL
                 s.translate(-size / 2, -size / 2, 0);
@@ -95,20 +130,27 @@ export const gameHost = {
                 const timeStart = gameState.timeStartMs ?? now();
                 const timeMs = now() - timeStart;
 
+                let isStillLoading = false;
                 const result = drawGame({
                     frame: { width: size, height: size },
                     s,
                     gameData: nftAdventure_nftDungeon,
                     gameState,
                     gameCache,
-                    tokenId,
                     timeMs,
                     settings: gameSettings,
+                    onStillLoading: () => {
+                        isStillLoading = true;
+                    },
                 });
 
                 gameState = result.gameState;
                 if (!gameState.timeStartMs){
                     gameState.timeStartMs = now();
+                }
+
+                if (!isStillLoading){
+                    globalControllerState.onDrawEnd?.();
                 }
             };
         });

@@ -32,6 +32,7 @@ export const drawGameStep = ({
     mode,
     autoPlayMode,
     settings,
+    onStillLoading,
 }: {
     step: GameStep;
     gameCache: GameCache;
@@ -44,6 +45,7 @@ export const drawGameStep = ({
     mode: 'step' | 'response';
     autoPlayMode: false | 'play' | 'step-image';
     settings: GameSettings;
+    onStillLoading: () => void;
 }): { done: boolean } => {
 
     if (!step){ return { done: true };}
@@ -260,15 +262,17 @@ export const drawGameStep = ({
             const wTarget = PAD * -1 + frame.width - (PAD);
             const hTarget = PAD * -1 + frame.height - (PAD + +3 + 2 * LINE_HEIGHT);
 
+            const svgImageKey = `${svgName}${tokenId}`;
             if (!gameCache.svgImages){ gameCache.svgImages = {};}
-            if (!gameCache.svgImages[svgName]){
-                gameCache.svgImages[svgName] = loadSvgPixelArtFromUrl(sRaw, `${settings.artPath}${svgName}.svg`, tokenId, { width: wTarget, height: hTarget });
+            if (!gameCache.svgImages[svgImageKey]){
+                gameCache.svgImages[svgImageKey] = loadSvgPixelArtFromUrl(sRaw, `${settings.artPath}${svgName}.svg`, tokenId, { width: wTarget, height: hTarget });
             }
-            const { getIsLoaded, image } = gameCache.svgImages[svgName];
+            const { getIsLoaded, image } = gameCache.svgImages[svgImageKey];
             const isLoaded = getIsLoaded();
 
             if (!isLoaded || !image){
                 // console.log(`drawSvgArt - not loaded`, { svgName, opacity, isLoaded, image });
+                onStillLoading();
                 return;
             }
             // console.log(`drawSvgArt - drawing`, { svgName, opacity, isLoaded, image });
@@ -668,6 +672,7 @@ export type GameState = {
     timeStartMs?: number;
     stepIndex?: number;
     actionIndex?: number;
+    tokenId: string;
     input: string;
     mode: 'step' | 'response';
     autoPlayMode: false | 'play' | 'step-image';
@@ -678,18 +683,18 @@ export const drawGame = ({
     gameCache,
     s,
     frame,
-    tokenId,
     timeMs,
     settings,
+    onStillLoading,
 }: {
     gameState: GameState;
     gameData: GameData;
     gameCache: GameCache;
     s: p5;
     frame: { width: number; height: number };
-    tokenId: string;
     timeMs: number;
     settings: GameSettings;
+    onStillLoading: () => void;
 }): { done: boolean; gameState: GameState } => {
 
 
@@ -720,6 +725,7 @@ export const drawGame = ({
     const {
         stepIndex = 0,
         actionIndex,
+        tokenId,
         input = ``,
         mode,
         autoPlayMode,
@@ -738,6 +744,7 @@ export const drawGame = ({
         step, gameCache, actionIndex, s,
         timeMs, frame, tokenId, input, mode, autoPlayMode,
         settings,
+        onStillLoading,
     });
 
     if (autoPlayMode === `step-image`){

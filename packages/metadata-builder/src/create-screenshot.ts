@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
 
-declare let window: GlobalArtControllerWindow;
+declare const window: GlobalArtControllerWindow;
 
 export const createScreenshots = async ({
   baseUrl,
