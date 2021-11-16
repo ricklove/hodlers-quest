@@ -1,5 +1,6 @@
 import path from 'path';
 import { createTokenImages } from './create-token-image';
+import { createTokenJson } from './create-token-json';
 
 export const run = async () => {
     const PROJECT_BUCKET_SIDE = 1000000;
@@ -9,14 +10,14 @@ export const run = async () => {
     const THREADS = 1;
 
     const projectIds = [... new Array(PROJECT_ID_MAX + 1)].map((_, i) => i);
-    const tokenIds = projectIds
+    const tokenIdsAll = projectIds
         .flatMap(projectId => [... new Array(PROJECT_TOKEN_COUNT)]
             .map((_, i) => `${projectId * PROJECT_BUCKET_SIDE + i}`));
 
     try {
 
-        const tokenIdsSlices = [...new Array(THREADS)].map(() => [] as typeof tokenIds);
-        tokenIds.forEach((t, i) => {
+        const tokenIdsSlices = [...new Array(THREADS)].map(() => [] as typeof tokenIdsAll);
+        tokenIdsAll.forEach((t, i) => {
             tokenIdsSlices[i % THREADS].push(t);
         });
 
@@ -30,6 +31,15 @@ export const run = async () => {
                     height: 600,
                 },
             });
+
+                await createTokenJson({
+                    tokenIds: tokenIdsSlice,
+                    destDir: path.resolve(`./out/nft/metadata`),
+                    imageUrlRoot: `https://hodlersquest.xyz/_metadata/nft/images/`,
+                    imageUrlSuffix: `.png`,
+                    externalUrlRoot: `https://hodlersquest.xyz/_metadata/nft/metadata/`,
+                    externalUrlSuffix: `.json`,
+                });
         }
 
     } catch (err){

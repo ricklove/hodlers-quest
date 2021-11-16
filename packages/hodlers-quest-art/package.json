@@ -2,6 +2,7 @@
     "private": true,
     "name": "@hodlers-quest/art",
     "version": "1.0.0",
+    "type": "module",
     "main": "lib/index.js",
     "dependencies": {
         "p5": "^1.4.0",

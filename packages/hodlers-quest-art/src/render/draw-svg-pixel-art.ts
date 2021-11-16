@@ -1,9 +1,10 @@
 import type p5 from 'p5';
-import { js2xml, xml2js } from 'xml-js';
+import xmljs from 'xml-js';
 import { colorFormat } from '../utils/color-format';
 import { createRandomGenerator } from '../utils/random';
 import { RgbHex, SvgDoc } from './inkscape-svg-types';
 import { transformSvgWithTraits } from './transform-svg-with-traits';
+const { js2xml, xml2js } = xmljs;
 
 const loadSvgIntoImage = async (svgContent: string) => {
     return await new Promise<HTMLImageElement>((resolve, reject) => {

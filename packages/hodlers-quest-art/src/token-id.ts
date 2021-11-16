@@ -11,7 +11,7 @@ export const getGameStepFromTokenId = (tokenId: string) => {
         }
 
         const [stepIndex, actionIndex] = stepAction.split(`:`).map(x => parseInt(x, 10) as undefined | number);
-        console.log(`getGameStepFromTokenId`, { stepIndexInit: stepIndex, actionIndexInit: actionIndex });
+        // console.log(`getGameStepFromTokenId`, { stepIndexInit: stepIndex, actionIndexInit: actionIndex });
         return {
             stepIndex,
             actionIndex,
