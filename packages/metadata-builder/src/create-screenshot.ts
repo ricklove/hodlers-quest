@@ -40,7 +40,9 @@ export const createScreenshots = async ({
 
     const filePath = path.join(destPath, `${tokenId}.png`.padStart(10, `0`));
     filePaths.push(filePath);
-    await page.screenshot({ path: filePath });
+    await page.screenshot({
+      path: filePath,
+    });
   }
 
   await browser.close();

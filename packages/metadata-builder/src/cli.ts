@@ -13,7 +13,7 @@ export const run = async () => {
 
     try {
         await createScreenshots({
-            baseUrl: `http://localhost:4201/image/`,
+            baseUrl: `http://localhost:4201/image/0`,
             tokenIds,
             destDir: path.resolve(`./out/nft/images`),
             size: {
