@@ -23,8 +23,7 @@ export const gameHost = {
         showKeyboard: () => void;
     }) => {
 
-        // const RENDERER: p5.RENDERER = isStaticImage ? `p2d` : `webgl`;
-        const RENDERER: p5.RENDERER = `p2d`;
+        const RENDERER: p5.RENDERER = isStaticImage ? `p2d` : `webgl`;
 
         const TARGET_SIZE = 300 * canvasScale;
         const SMALL_SIZE = 300 * canvasScale;
