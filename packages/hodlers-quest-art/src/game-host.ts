@@ -57,7 +57,7 @@ export const gameHost = {
                 canvas = document.getElementById(canvasId) as HTMLCanvasElement;
 
                 eventProvider = createEventProvider(canvas);
-                eventProvider.canvasAddEventListener(`touchstart`, () => {
+                eventProvider.canvasAddEventListener(`touchend`, () => {
                     showKeyboard();
                 });
                 eventProvider.windowAddEventListener(`keydown`, x => {

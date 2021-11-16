@@ -19,23 +19,32 @@ export const TokenHost = ({ tokenId }: { tokenId: string }) => {
             },
             showKeyboard: () => {
                 inputKeyboardRef.current?.focus();
-                setTimeout(() => {
-                    inputKeyboardRef.current?.focus();
-                }, 10);
             },
         });
     }, []);
 
     return (
-        <div>
-            <div id={id}
-                style={{ width: 300, height: 300 }} />
+        <div
+            style={{ width: 300, height: 300, position: `relative` }}
+        >
             <input type='text' ref={inputKeyboardRef}
-                style={{ opacity: 0.1, fontSize: 16, position: `fixed`, bottom: 0, right: 0 }}
+                style={{
+                    width: 300, height: 300,
+                    opacity: 0,
+                    position: `absolute`,
+                    left: 0, bottom: 0,
+                    fontSize: 16,
+                    padding: 0, margin: 0,
+                    textAlign: `end`,
+                    verticalAlign: `bottom`,
+                }}
                 autoCorrect='off'
                 autoCapitalize='off'
-                autoFocus
+                autoFocus={true}
                 />
+            <div id={id}
+                style={{ width: 300, height: 300 }} />
+
         </div>
     );
 };
