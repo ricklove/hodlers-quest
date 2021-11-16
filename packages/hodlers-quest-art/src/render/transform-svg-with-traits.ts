@@ -10,10 +10,10 @@ export const transformSvgWithTraits = (svgDoc: SvgDoc, seed: string) => {
         selectedColors,
     } = selectTraits(seed, versions._2021_08_21);
 
-    console.log(`transformSvgWithTraits`, {
-        selectedTraits: Object.entries(selectedTraits).map(x => `${x[0]}:${x[1].traitKey}`),
-        selectedColors,
-    });
+    // console.log(`transformSvgWithTraits`, {
+    //     selectedTraits: Object.entries(selectedTraits).map(x => `${x[0]}:${x[1].traitKey}`),
+    //     selectedColors,
+    // });
 
     const svg = svgDoc.elements.find(x => x.name === `svg`);
     if (!svg || !svg.elements.length){
@@ -61,11 +61,11 @@ export const transformSvgWithTraits = (svgDoc: SvgDoc, seed: string) => {
             const isUnselectedTraitNode = traitGroup && !isSelectedTraitNode;
 
             if (shouldSkipUnselectedTrait && isUnselectedTraitNode){
-                console.log(`Skipping unselected trait`, { label, parentLabel });
+                // console.log(`Skipping unselected trait`, { label, parentLabel });
                 return { skipChildren: true };
             }
             if (traitGroup){
-                console.log(`Visiting selected trait`, { label, parentLabel });
+                // console.log(`Visiting selected trait`, { label, parentLabel });
             }
 
             const result = handleNode(n, context, isSelectedTraitNode ? `selected` : isUnselectedTraitNode ? `unselected` : undefined);
@@ -172,15 +172,15 @@ export const transformSvgWithTraits = (svgDoc: SvgDoc, seed: string) => {
             return { skipChildren: true };
         });
     });
-    console.log(`traitColors`, {
-        traitColors_rgb,
-        selectedColors_rgb: Object.entries(selectedColors)
-            .map(x => ({
-                key: x[0],
-                value: colorFormat.rgbToRgbHex(colorFormat.hslToRgb(x[1])),
-            })),
-        selectedColors,
-    });
+    // console.log(`traitColors`, {
+    //     traitColors_rgb,
+    //     selectedColors_rgb: Object.entries(selectedColors)
+    //         .map(x => ({
+    //             key: x[0],
+    //             value: colorFormat.rgbToRgbHex(colorFormat.hslToRgb(x[1])),
+    //         })),
+    //     selectedColors,
+    // });
 
     const traitColorShifts = colorTraits.map(t => {
 
@@ -211,10 +211,10 @@ export const transformSvgWithTraits = (svgDoc: SvgDoc, seed: string) => {
             colorChange: minChange,
         };
     });
-    console.log(`traitColorShifts`, {
-        traitColorShifts: traitColorShifts
-            .map(x => `${x.trait}: hsl(${x.colorChange?.h},${x.colorChange?.s},${x.colorChange?.l})`),
-    });
+    // console.log(`traitColorShifts`, {
+    //     traitColorShifts: traitColorShifts
+    //         .map(x => `${x.trait}: hsl(${x.colorChange?.h},${x.colorChange?.s},${x.colorChange?.l})`),
+    // });
 
 
     // TODO: Apply the color shifts

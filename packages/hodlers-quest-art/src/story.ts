@@ -30,7 +30,7 @@ type GameItemKey = typeof items[number]['key'];
 /** There is only a single linear progression, all other choices end in death */
 const story: GameStep<GameItemKey>[] = [
     {
-        title: `NFT Text Adventure`,
+        title: `HODLer's Quest`,
         art: { svgName: `arm-up` },
         description: ``,
         inventory: [],

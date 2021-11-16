@@ -18,8 +18,8 @@
 
 - [ ] Generate NFT w/ interactive game
     - [x] Import Art Files and Story
-    - [ ] Display Interactive Game
-    - [ ] Generate iframe page
+    - [x] Display Interactive Game
+    - [x] Create iframe page
     - [ ] Generate image
     - [ ] Generate json
     - [ ] Publish generated assets into react site files
