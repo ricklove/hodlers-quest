@@ -30,6 +30,7 @@ export const drawGameStep = ({
     tokenId,
     input,
     mode,
+    autoPlayMode,
     settings,
 }: {
     step: GameStep;
@@ -41,6 +42,7 @@ export const drawGameStep = ({
     tokenId: string;
     input: string;
     mode: 'step' | 'response';
+    autoPlayMode: false | 'play' | 'action-image' | 'result-image';
     settings: GameSettings;
 }): { done: boolean } => {
 
@@ -112,7 +114,7 @@ export const drawGameStep = ({
 
         const { random: randomSlow } = createRandomGenerator(`${tokenId}${step}${Math.floor(timeMs / 250)}`);
         const { random: random } = createRandomGenerator(`${tokenId}${step}${Math.floor(timeMs / 50)}`);
-        const shouldGlitch = step.glitch && randomSlow() > (1.0 - step.glitch.ratio);
+        const shouldGlitch = !autoPlayMode && step.glitch && randomSlow() > (1.0 - step.glitch.ratio);
 
         const charsPerSecond = 30;
         let charLength = Math.floor(timeMs / 1000 * charsPerSecond);
@@ -338,7 +340,7 @@ export const drawGameStep = ({
 
                 const fadeInOpacity = charLength > FADE_CHAR_TIME ? 1 : (charLength / FADE_CHAR_TIME);
                 charLength -= DISPLAY_CHAR_TIME;
-                const fadeOutOpacity = charLength <= 0 ? 1 : (1.0 - 0.85 * Math.min(1, charLength / FADE_CHAR_TIME));
+                const fadeOutOpacity = charLength <= 0 ? 1 : (1.0 - 0.65 * Math.min(1, charLength / FADE_CHAR_TIME));
 
                 const opacity = Math.min(fadeInOpacity, fadeOutOpacity);
                 if (alwaysDraw || charLength < 0){
@@ -525,6 +527,21 @@ export const drawGameStep = ({
                 return { done: false };
             }
 
+
+            if (autoPlayMode){
+                const action = actions[actionIndex ?? -1];
+                const commandText = action.name ?? ``;
+                if (!drawNextPart(`> ${commandText}`, drawActionInputText, {
+                    color: s.color(100, 255, 100),
+                    fontSize: FONT_SIZE_M,
+                    speedMultiplier: 0.5,
+                }).done){
+                    return { done: false };
+                }
+
+                return { done: true };
+            }
+
             const commandText = actionInput?.trimEnd() ?? ``;
             if (!drawWaitMessage(Number.MAX_SAFE_INTEGER, `> ${commandText}`, `> ${commandText}_`, drawActionInputText, {
                 color: s.color(100, 255, 100),
@@ -576,6 +593,10 @@ export const drawGameStep = ({
                     return { done: false };
                 }
 
+                if (autoPlayMode){
+                    return { done: true };
+                }
+
                 s.textAlign(`left`);
                 if (!drawActionInputSection(gameOverActions.map(x => ({ name: x, description: `` })), undefined, input).done){
                     return { done: true };
@@ -607,6 +628,10 @@ export const drawGameStep = ({
                     fontSize: FONT_SIZE_L,
                 }).done){
                     return { done: false };
+                }
+
+                if (autoPlayMode){
+                    return { done: true };
                 }
 
                 s.textAlign(`left`);
@@ -644,6 +669,7 @@ export type GameState = {
     actionIndex?: number;
     input: string;
     mode: 'step' | 'response';
+    autoPlayMode: false | 'play' | 'action-image' | 'result-image';
 };
 export const drawGame = ({
     gameState,
@@ -668,7 +694,26 @@ export const drawGame = ({
 
     if (gameState.input){
         gameState.timeStartMs = 1;
-        // gameState.actionIndex = undefined;
+        gameState.autoPlayMode = false;
+    }
+
+    if (gameState.autoPlayMode === `action-image`){
+        gameState.timeStartMs = 0;
+        timeMs = Number.MAX_SAFE_INTEGER;
+    }
+    if (gameState.autoPlayMode === `result-image`){
+        gameState.timeStartMs = 0;
+        timeMs = Number.MAX_SAFE_INTEGER;
+
+        if (gameData.story[gameState.stepIndex || 0]?.actions[gameState.actionIndex || 0].result?.gameOver){
+            gameState.mode = `response`;
+        } else if (gameData.story[(gameState.stepIndex || 0) + 1]) {
+            gameState.stepIndex = (gameState.stepIndex || 0) + 1;
+            gameState.actionIndex = undefined;
+            gameState.mode = `step`;
+        } else {
+            gameState.mode = `step`;
+        }
     }
 
     const {
@@ -676,6 +721,7 @@ export const drawGame = ({
         actionIndex,
         input = ``,
         mode,
+        autoPlayMode,
     } = gameState;
 
     const step = gameData.story[stepIndex || 0] ?? undefined;
@@ -689,9 +735,38 @@ export const drawGame = ({
 
     const result = drawGameStep({
         step, gameCache, actionIndex, s,
-        timeMs, frame, tokenId, input, mode,
+        timeMs, frame, tokenId, input, mode, autoPlayMode,
         settings,
     });
+
+    if (autoPlayMode === `action-image`
+        || autoPlayMode === `result-image`){
+        return {
+            done: false,
+            gameState,
+        };
+    }
+
+    if (autoPlayMode === `play`) {
+
+        if (gameState.mode === `step` && result.done){
+            return {
+                done: false,
+                gameState: {
+                    ...gameState,
+                    input: ``,
+                    mode: `response`,
+                    timeStartMs: undefined,
+                },
+            };
+        }
+
+        // Wait forever
+        return {
+            done: false,
+            gameState,
+        };
+    }
 
     if (input.endsWith(`\n`) && input.trim()){
         const words = input.trim().split(` `).filter(x => x);
@@ -721,8 +796,6 @@ export const drawGame = ({
             };
         }
     }
-
-    console.log(``, { mode: gameState.mode, done: result.done });
 
     if (gameState.mode === `response` && result.done){
 

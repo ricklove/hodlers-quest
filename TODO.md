@@ -20,7 +20,19 @@
     - [x] Import Art Files and Story
     - [x] Display Interactive Game
     - [x] Create iframe page
-    - [ ] Generate image
+    - [ ] Generate images
+        - [ ] Action (Before Reveal)
+            - Previous Title
+            - Previous Image
+            - Previous Story 
+            - Action Choices 
+            - Selected Action
+        - [ ] Action (After Reveal)
+            - Result Title
+            - Result Image
+            - Result Story
+            - If over: 
+                - GAME OVER
     - [ ] Generate json
     - [ ] Publish generated assets into react site files
 
