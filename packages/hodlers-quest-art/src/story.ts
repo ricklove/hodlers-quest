@@ -61,15 +61,15 @@ You can't see anything, but you can feel that you are lying on a cold hard surfa
             {
                 name: `search the ground`,
                 description: `You search the ground...`,
-//                 result: {
-//                     art: { svgName: `search-ground` },
-//                     gameOver: `
-// As you feel around your position, you realize that there is no ground anywhere around you.
+                result: {
+                    art: { svgName: `search-ground` },
+                    gameOver: `
+As you feel around your position, you realize that there is no ground anywhere around you.
 
-// There is no way you can escape...
+There is no way you can escape...
 
-// `,
-//                 },
+`,
+                },
             },
             {
                 name: `call for help`,

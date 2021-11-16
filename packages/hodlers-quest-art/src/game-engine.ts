@@ -578,7 +578,7 @@ export const drawGameStep = ({
 
                 s.textAlign(`left`);
                 if (!drawActionInputSection(gameOverActions.map(x => ({ name: x, description: `` })), undefined, input).done){
-                    return { done: false };
+                    return { done: true };
                 }
             }
 
@@ -611,7 +611,7 @@ export const drawGameStep = ({
 
                 s.textAlign(`left`);
                 if (!drawActionInputSection(gameOverActions.map(x => ({ name: x, description: `` })), undefined, input).done){
-                    return { done: false };
+                    return { done: true };
                 }
             }
 
@@ -721,6 +721,8 @@ export const drawGame = ({
             };
         }
     }
+
+    console.log(``, { mode: gameState.mode, done: result.done });
 
     if (gameState.mode === `response` && result.done){
 
