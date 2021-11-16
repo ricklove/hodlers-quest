@@ -3,9 +3,9 @@
     - [x] Publish to Netlify
     - [ ] Favicon, metadata, seo
 
-- [ ] Setup Netlify
+- [x] Setup Netlify
     - [x] Custom domain - HODLersQuest.xyz
-    - [ ] Verify
+    - [x] Verify
 
 - [x] Setup Discord
     - [x] Create Discord Server
@@ -20,7 +20,7 @@
     - [x] Import Art Files and Story
     - [x] Display Interactive Game
     - [x] Create iframe page
-    - [ ] Generate images
+    - [x] Create image page
         - [x] Action (Before Reveal)
             - Previous Title
             - Previous Image
@@ -33,6 +33,7 @@
             - Result Story
             - If over: 
                 - GAME OVER
+    - [ ] Generate images
     - [ ] Generate json
     - [ ] Publish generated assets into react site files
 

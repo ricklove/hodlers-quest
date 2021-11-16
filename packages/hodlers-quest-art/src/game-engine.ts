@@ -337,10 +337,11 @@ export const drawGameStep = ({
             if (art?.svgName){
                 const FADE_CHAR_TIME = 2 * charsPerSecond;
                 const DISPLAY_CHAR_TIME = 5 * charsPerSecond;
+                const FADE_MAX = autoPlayMode === `step-image` ? 0.35 : 0.75;
 
                 const fadeInOpacity = charLength > FADE_CHAR_TIME ? 1 : (charLength / FADE_CHAR_TIME);
                 charLength -= DISPLAY_CHAR_TIME;
-                const fadeOutOpacity = charLength <= 0 ? 1 : (1.0 - 0.65 * Math.min(1, charLength / FADE_CHAR_TIME));
+                const fadeOutOpacity = charLength <= 0 ? 1 : (1.0 - FADE_MAX * Math.min(1, charLength / FADE_CHAR_TIME));
 
                 const opacity = Math.min(fadeInOpacity, fadeOutOpacity);
                 if (alwaysDraw || charLength < 0){
