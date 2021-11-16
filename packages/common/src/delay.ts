@@ -3,4 +3,3 @@ export async function delay(timeout: number): Promise<void> {
         setTimeout(resolve, timeout);
     });
 }
-
