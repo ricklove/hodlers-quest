@@ -37,8 +37,8 @@ export const run = async () => {
                     destDir: path.resolve(`./out/nft/metadata`),
                     imageUrlRoot: `https://hodlersquest.xyz/_metadata/nft/images/`,
                     imageUrlSuffix: `.png`,
-                    externalUrlRoot: `https://hodlersquest.xyz/_metadata/nft/metadata/`,
-                    externalUrlSuffix: `.json`,
+                    externalUrlRoot: `https://hodlersquest.xyz/nft/`,
+                    externalUrlSuffix: ``,
                 });
         }
 
