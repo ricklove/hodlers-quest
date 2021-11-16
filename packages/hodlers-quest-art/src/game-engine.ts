@@ -42,7 +42,7 @@ export const drawGameStep = ({
     tokenId: string;
     input: string;
     mode: 'step' | 'response';
-    autoPlayMode: false | 'play' | 'action-image' | 'result-image';
+    autoPlayMode: false | 'play' | 'step-image';
     settings: GameSettings;
 }): { done: boolean } => {
 
@@ -669,7 +669,7 @@ export type GameState = {
     actionIndex?: number;
     input: string;
     mode: 'step' | 'response';
-    autoPlayMode: false | 'play' | 'action-image' | 'result-image';
+    autoPlayMode: false | 'play' | 'step-image';
 };
 export const drawGame = ({
     gameState,
@@ -697,21 +697,17 @@ export const drawGame = ({
         gameState.autoPlayMode = false;
     }
 
-    if (gameState.autoPlayMode === `action-image`){
-        gameState.timeStartMs = 0;
-        timeMs = Number.MAX_SAFE_INTEGER;
-    }
-    if (gameState.autoPlayMode === `result-image`){
+    if (gameState.autoPlayMode === `step-image`){
         gameState.timeStartMs = 0;
         timeMs = Number.MAX_SAFE_INTEGER;
 
         if (gameData.story[gameState.stepIndex || 0]?.actions[gameState.actionIndex || 0].result?.gameOver){
+            // Show game over if it exists
             gameState.mode = `response`;
         } else if (gameData.story[(gameState.stepIndex || 0) + 1]) {
+            // Show next step if it exists
             gameState.stepIndex = (gameState.stepIndex || 0) + 1;
             gameState.actionIndex = undefined;
-            gameState.mode = `step`;
-        } else {
             gameState.mode = `step`;
         }
     }
@@ -739,8 +735,7 @@ export const drawGame = ({
         settings,
     });
 
-    if (autoPlayMode === `action-image`
-        || autoPlayMode === `result-image`){
+    if (autoPlayMode === `step-image`){
         return {
             done: false,
             gameState,

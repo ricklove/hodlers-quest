@@ -72,16 +72,16 @@ You can't see anything, but you can feel that you are lying on a cold hard surfa
             {
                 name: `search the ground`,
                 description: `You search the ground...`,
-                result: {
-                    art: { svgName: `arm-up` },
-                    // art: { svgName: `search-ground` },
-                    gameOver: `
-As you feel around your position, you realize that there is no ground anywhere around you.
+//                 result: {
+//                     art: { svgName: `arm-up` },
+//                     // art: { svgName: `search-ground` },
+//                     gameOver: `
+// As you feel around your position, you realize that there is no ground anywhere around you.
 
-There is no way you can escape...
+// There is no way you can escape...
 
-`,
-                },
+// `,
+//                 },
             },
             {
                 name: `call for help`,
@@ -106,27 +106,27 @@ There is no way you can escape...
             },
         ],
     },
-    {
-        title: `Whispers`,
-        art: { svgName: `cold` },
-        description: `
+//     {
+//         title: `Whispers`,
+//         art: { svgName: `cold` },
+//         description: `
 
-In the distance, you hear the slight brookling of water flowing over stones, but nothing else at first.
+// In the distance, you hear the slight brookling of water flowing over stones, but nothing else at first.
 
-Then, you hear something you did not expect, a whisper in your ear that says:
+// Then, you hear something you did not expect, a whisper in your ear that says:
 
-"Do not move... They will see you..."`,
-        glitch: {
-            ratio: 0.03,
-            messages: [`HELP ME!`, `Who are you?`, `What are you?`, `How are you?`, `Where are you?`, `Why are you?`, `I'm cold`, `I'm alone`, `I'm afraid`],
-        },
-        inventory: [],
-        actions: [
-            { name: `remain still`, description: `You decide not moving is a good idea for now...` },
-            { name: `move away`, description: `You jerk away from the whisper...` },
-            { name: `stand up`, description: `You push yourself off the ground...` },
-        ],
-    },
+// "Do not move... They will see you..."`,
+//         glitch: {
+//             ratio: 0.03,
+//             messages: [`HELP ME!`, `Who are you?`, `What are you?`, `How are you?`, `Where are you?`, `Why are you?`, `I'm cold`, `I'm alone`, `I'm afraid`],
+//         },
+//         inventory: [],
+//         actions: [
+//             { name: `remain still`, description: `You decide not moving is a good idea for now...` },
+//             { name: `move away`, description: `You jerk away from the whisper...` },
+//             { name: `stand up`, description: `You push yourself off the ground...` },
+//         ],
+//     },
 ];
 
 export const createNftAdventure_nftTextAdventure = () => {
