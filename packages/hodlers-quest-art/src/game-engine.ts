@@ -701,14 +701,18 @@ export const drawGame = ({
         gameState.timeStartMs = 0;
         timeMs = Number.MAX_SAFE_INTEGER;
 
-        if (gameData.story[gameState.stepIndex || 0]?.actions[gameState.actionIndex || 0].result?.gameOver){
-            // Show game over if it exists
-            gameState.mode = `response`;
-        } else if (gameData.story[(gameState.stepIndex || 0) + 1]) {
-            // Show next step if it exists
-            gameState.stepIndex = (gameState.stepIndex || 0) + 1;
-            gameState.actionIndex = undefined;
-            gameState.mode = `step`;
+        if (gameState.stepIndex != null
+            && gameState.actionIndex != null){
+
+            if (gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver){
+                // Show game over if it exists
+                gameState.mode = `response`;
+            } else if (gameData.story[(gameState.stepIndex || 0) + 1]) {
+                // Show next step if it exists
+                gameState.stepIndex = (gameState.stepIndex || 0) + 1;
+                gameState.actionIndex = undefined;
+                gameState.mode = `step`;
+            }
         }
     }
 

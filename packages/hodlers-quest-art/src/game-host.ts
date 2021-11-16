@@ -36,7 +36,8 @@ export const gameHost = {
             input: ``,
             isRespondingToInput: false,
             mode: `step`,
-            autoPlayMode: (stepIndexInit ?? 0) > 0 ? `step-image` : false,
+            // autoPlayMode: (stepIndexInit ?? 0) > 0 ? `play` : false,
+            autoPlayMode: `step-image`,
         } as GameState;
 
         const gameCache = {} as GameCache;
