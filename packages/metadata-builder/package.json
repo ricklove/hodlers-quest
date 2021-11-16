@@ -5,9 +5,8 @@
     "type": "module",
     "main": "lib/index.js",
     "scripts": {
-        "build": "node run cli",
-        "// cli": "ts-node ./src/cli.ts",
-        "cli": "node --experimental-specifier-resolution=node --loader ts-node/esm ./src/cli.ts"
+        "// build": "ts-node ./src/cli.ts",
+        "build": "node --experimental-specifier-resolution=node --loader ts-node/esm ./src/cli.ts"
     },
     "dependencies": {
         "puppeteer": "~10.2.0"

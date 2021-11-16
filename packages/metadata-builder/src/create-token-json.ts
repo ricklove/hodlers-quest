@@ -27,6 +27,8 @@ export const createTokenJson = async ({
     filePaths.push(filePath);
 
     await fs.writeFile(filePath, tokenJson);
+
+    console.log(`## createTokenJson - created`, { filePath });
   }
 
   return { filePaths };

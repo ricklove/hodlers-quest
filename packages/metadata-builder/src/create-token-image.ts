@@ -44,6 +44,8 @@ export const createTokenImages = async ({
       path: filePath,
       type: `png`,
     });
+
+    console.log(`## createTokenImages - created`, { filePath });
   }
 
   await browser.close();
