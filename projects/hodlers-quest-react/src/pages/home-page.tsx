@@ -1,16 +1,14 @@
-import { TokenPage } from './token-page';
+import { TokenHost } from './token-host';
 
 export const HomePage = () => {
 
     return (
         <div
             style={{ display: `flex`, flexDirection: `column`, justifyContent: `space-between`, alignItems: `center`, minHeight: `calc(100vh - 100px)` }}>
-            <div style={{ width: `100%` }}>
-                <TokenPage tokenId={`0`}/>
+            <div style={{ display: `flex`, width: `100%`, justifyContent: `center`, alignItems: `center` }}>
+                <TokenHost tokenId={`0`}/>
             </div>
             <CharacterArea/>
-
-            {/* <OtherRarityTools/> */}
         </div>
     );
 };
