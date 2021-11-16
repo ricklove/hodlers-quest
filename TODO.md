@@ -16,7 +16,7 @@
         - [x] Announcements
         - [x] General
 
-- [ ] Generate NFT w/ interactive game
+- [x] Generate NFT w/ interactive game
     - [x] Import Art Files and Story
     - [x] Display Interactive Game
     - [x] Create iframe page
@@ -33,9 +33,9 @@
             - Result Story
             - If over: 
                 - GAME OVER
-    - [ ] Generate images
-    - [ ] Generate json
-    - [ ] Publish generated assets into react site files
+    - [x] Generate images
+    - [x] Generate json
+    - [x] Publish generated assets into react site files
 
 - [ ] Publish Test Contract
     - [ ] Deploy to testnet
