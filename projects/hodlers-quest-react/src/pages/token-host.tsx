@@ -3,7 +3,7 @@ import '../blank.css';
 import { gameHost } from '@hodlers-quest/art';
 import p5 from 'p5';
 
-export const TokenHost = ({ tokenId }: { tokenId: string }) => {
+export const TokenHost = ({ tokenId, isStaticImage }: { tokenId: string; isStaticImage?: boolean }) => {
 
     const id = `art-host`;
     const inputKeyboardRef = useRef(null as null | HTMLInputElement);
@@ -11,6 +11,7 @@ export const TokenHost = ({ tokenId }: { tokenId: string }) => {
     useEffect(() => {
         gameHost.renderGame({
             tokenId,
+            isStaticImage: isStaticImage ?? false,
             createP5: (callback) => {
                 const element = document.getElementById(id) as HTMLElement;
                 const result = new p5(callback, element);

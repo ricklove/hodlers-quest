@@ -17,9 +17,15 @@ const Routing = (_props: {}) => {
 
   console.log(`route`, { route });
 
+  if (path === `image` && tokenId){
+    return (
+      <TokenIframePage tokenId={tokenId} isStaticImage={true}/>
+    );
+  }
+
   if (path === `iframe` && tokenId){
     return (
-      <TokenIframePage tokenId={tokenId}/>
+      <TokenIframePage tokenId={tokenId} isStaticImage={false}/>
     );
   }
 

@@ -10,10 +10,12 @@ const nftAdventure_nftDungeon = createNftAdventure_nftTextAdventure();
 export const gameHost = {
     renderGame: ({
         tokenId = `0`,
+        isStaticImage,
         createP5,
         showKeyboard,
     }: {
         tokenId: string;
+        isStaticImage: boolean;
         createP5: (callback: (s: p5) => void) => void;
         showKeyboard: () => void;
     }) => {
@@ -36,8 +38,7 @@ export const gameHost = {
             input: ``,
             isRespondingToInput: false,
             mode: `step`,
-            // autoPlayMode: (stepIndexInit ?? 0) > 0 ? `play` : false,
-            autoPlayMode: `step-image`,
+            autoPlayMode: isStaticImage ? `step-image` : (stepIndexInit ?? 0) > 0 ? `play` : false,
         } as GameState;
 
         const gameCache = {} as GameCache;

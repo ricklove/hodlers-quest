@@ -593,7 +593,7 @@ export const drawGameStep = ({
                     return { done: false };
                 }
 
-                if (autoPlayMode){
+                if (autoPlayMode === `step-image`){
                     return { done: true };
                 }
 
@@ -630,7 +630,7 @@ export const drawGameStep = ({
                     return { done: false };
                 }
 
-                if (autoPlayMode){
+                if (autoPlayMode === `step-image`){
                     return { done: true };
                 }
 
