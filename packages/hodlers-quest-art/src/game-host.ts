@@ -8,10 +8,15 @@ import { createEventProvider, EventProvider } from './utils/event-provider';
 const nftAdventure_nftDungeon = createNftAdventure_nftTextAdventure();
 
 export const gameHost = {
-    renderGame: (
+    renderGame: ({
         tokenId = `0`,
-        createP5: (callback: (s: p5) => void) => void,
-    ) => {
+        createP5,
+        showKeyboard,
+    }: {
+        tokenId: string;
+        createP5: (callback: (s: p5) => void) => void;
+        showKeyboard: () => void;
+    }) => {
         const TARGET_SIZE = 300;
         const SMALL_SIZE = 300;
         const size = window.innerWidth > TARGET_SIZE && window.innerHeight > TARGET_SIZE ? TARGET_SIZE : SMALL_SIZE;
@@ -52,6 +57,9 @@ export const gameHost = {
                 canvas = document.getElementById(canvasId) as HTMLCanvasElement;
 
                 eventProvider = createEventProvider(canvas);
+                eventProvider.canvasAddEventListener(`touchstart`, () => {
+                    showKeyboard();
+                });
                 eventProvider.windowAddEventListener(`keydown`, x => {
 
                     if (x.key.toLowerCase() === `backspace`){
