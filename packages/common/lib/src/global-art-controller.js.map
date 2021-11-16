@@ -1,1 +1,0 @@
-{"version":3,"file":"global-art-controller.js","sourceRoot":"","sources":["../../src/global-art-controller.ts"],"names":[],"mappings":"","sourcesContent":["export type GlobalArtControllerWindow = {\r\n    ['globalArtController']: {\r\n      loadTokenId: (tokenId: string) => Promise<void>;\r\n    };\r\n};\r\n"]}
