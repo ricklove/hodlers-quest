@@ -5,7 +5,7 @@ import { TokenHost } from './token-host';
 export const TokenIframePage = ({ tokenId }: { tokenId: string }) => {
 
     return (
-        <div style={{ display: `flex`, width: `100vw`, height: `100vh`, justifyContent: `center`, alignItems: `center` }}>
+        <div style={{ display: `flex`, width: `100%`, height: `100%`, justifyContent: `center`, alignItems: `center` }}>
             <TokenHost tokenId={tokenId}/>
         </div>
     );
