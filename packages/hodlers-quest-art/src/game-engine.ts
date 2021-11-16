@@ -470,9 +470,9 @@ export const drawGameStep = ({
             if (randomSlow() > 0.25){
                 s.fill(s.color(255, 255, 255));
                 s.textAlign(`center`);
-                s.textSize(10);
+                s.textSize(FONT_SIZE_M);
                 const glitches = step.glitch.messages;
-                s.text(glitches[Math.floor(random() * glitches.length) ],
+                s.text(glitches[Math.floor(randomSlow() * glitches.length) ],
                     PAD,
                     PAD + LINE_HEIGHT * 5,
                     PAD * -2 + frame.width,
