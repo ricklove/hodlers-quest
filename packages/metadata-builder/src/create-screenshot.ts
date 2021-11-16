@@ -1,6 +1,9 @@
+import { GlobalArtControllerWindow } from '@hodlers-quest/common';
 import { promises as fs } from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
+
+declare let window: GlobalArtControllerWindow;
 
 export const createScreenshots = async ({
   baseUrl,
@@ -15,6 +18,7 @@ export const createScreenshots = async ({
 }) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  await page.goto(`${baseUrl}`);
   await page.setViewport(size);
 
   const destPath = path.resolve(destDir);
@@ -23,7 +27,16 @@ export const createScreenshots = async ({
   const filePaths = [] as string[];
 
   for (const tokenId of tokenIds) {
-    await page.goto(`${baseUrl}${tokenId}`);
+    const evaluateArgs = {
+      tokenId,
+    };
+    await page.evaluate(({ tokenId }: typeof evaluateArgs) => {
+      const c = window.globalArtController;
+      if (!c) {
+        return;
+      }
+      return c.loadTokenId(tokenId);
+    }, evaluateArgs);
 
     const filePath = path.join(destPath, `${tokenId}.png`.padStart(10, `0`));
     filePaths.push(filePath);

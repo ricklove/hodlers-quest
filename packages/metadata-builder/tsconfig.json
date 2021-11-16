@@ -1,7 +1,7 @@
 {
     "extends": "../../.config/tsconfig-node.json",
     "compilerOptions": {
-        "outDir": "lib",
+        "module": "commonjs"
     },
     "include": [
         "src",

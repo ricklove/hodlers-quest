@@ -1,0 +1,1 @@
+{"version":3,"file":"global-art-controller.d.ts","sourceRoot":"","sources":["../../src/global-art-controller.ts"],"names":[],"mappings":"AAAA,oBAAY,yBAAyB,GAAG;IACpC,CAAC,qBAAqB,CAAC,EAAE;QACvB,WAAW,EAAE,CAAC,OAAO,EAAE,MAAM,KAAK,OAAO,CAAC,IAAI,CAAC,CAAC;KACjD,CAAC;CACL,CAAC"}

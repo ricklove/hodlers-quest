@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "main": "lib/index.js",
     "scripts": {
-        "build": "npx tsc && cd ./lib && node ./cli.ts"
+        "build": "ts-node ./src/cli.ts"
     },
     "dependencies": {
         "puppeteer": "~10.2.0"
