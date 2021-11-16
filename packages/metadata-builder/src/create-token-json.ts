@@ -1,21 +1,15 @@
-import { getTokenMetadataJson } from '@hodlers-quest/art';
+import { getTokenMetadataJson, TokenMetadataUrlTemplates } from '@hodlers-quest/art';
 import { promises as fs } from 'fs';
 import path from 'path';
 
 export const createTokenJson = async ({
   tokenIds,
   destDir,
-  imageUrlRoot,
-  imageUrlSuffix,
-  externalUrlRoot,
-  externalUrlSuffix,
+  urls,
 }: {
   tokenIds: string[];
   destDir: string;
-  imageUrlRoot: string;
-  imageUrlSuffix: string;
-  externalUrlRoot: string;
-  externalUrlSuffix: string;
+  urls: TokenMetadataUrlTemplates;
 }) => {
 
   const destPath = path.resolve(destDir);
@@ -26,10 +20,7 @@ export const createTokenJson = async ({
   for (const tokenId of tokenIds) {
     const tokenJson = JSON.stringify(getTokenMetadataJson({
       tokenId,
-      imageUrlRoot,
-      imageUrlSuffix,
-      externalUrlRoot,
-      externalUrlSuffix,
+      urls,
     }));
 
     const filePath = path.join(destPath, `${Number(tokenId)}.json`);

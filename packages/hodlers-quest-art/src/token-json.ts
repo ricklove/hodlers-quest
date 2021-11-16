@@ -1,26 +1,30 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getGameStepFromTokenId } from './token-id';
 
-export const getTokenMetadataJson = ({
-    tokenId,
-    imageUrlRoot,
-    imageUrlSuffix,
-    externalUrlRoot,
-    externalUrlSuffix,
-}: {
-    tokenId: string;
+
+export type TokenMetadataUrlTemplates = {
     imageUrlRoot: string;
     imageUrlSuffix: string;
     externalUrlRoot: string;
     externalUrlSuffix: string;
+    animationUrlRoot: string;
+    animationUrlSuffix: string;
+};
+export const getTokenMetadataJson = ({
+    tokenId,
+    urls,
+}: {
+    tokenId: string;
+    urls: TokenMetadataUrlTemplates;
 }) => {
     const { stepIndex, actionIndex } = getGameStepFromTokenId(tokenId);
     return {
         id: Number(tokenId),
         name: ``,
         description: ``,
-        image: `${imageUrlRoot}${tokenId}${imageUrlSuffix}`,
-        external_url: `${externalUrlRoot}${tokenId}${externalUrlSuffix}`,
+        image: `${urls.imageUrlRoot}${tokenId}${urls.imageUrlSuffix}`,
+        external_url: `${urls.externalUrlRoot}${tokenId}${urls.externalUrlSuffix}`,
+        animation_url: `${urls.animationUrlRoot}${tokenId}${urls.animationUrlSuffix}`,
         attributes: [
             {
                 trait_type: `stepIndex`,

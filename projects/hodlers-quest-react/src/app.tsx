@@ -29,7 +29,7 @@ const Routing = (_props: {}) => {
     );
   }
 
-  if (tokenId){
+  if (path === `nft` && tokenId){
     return (
       <Layout>
         <div className='App'>

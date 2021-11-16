@@ -35,10 +35,14 @@ export const run = async () => {
                 await createTokenJson({
                     tokenIds: tokenIdsSlice,
                     destDir: path.resolve(`./out/nft/metadata`),
-                    imageUrlRoot: `https://hodlersquest.xyz/_metadata/nft/images/`,
-                    imageUrlSuffix: `.png`,
-                    externalUrlRoot: `https://hodlersquest.xyz/nft/`,
-                    externalUrlSuffix: ``,
+                    urls:{
+                        imageUrlRoot: `https://hodlersquest.xyz/_metadata/nft/images/`,
+                        imageUrlSuffix: `.png`,
+                        externalUrlRoot: `https://hodlersquest.xyz/nft/`,
+                        externalUrlSuffix: ``,
+                        animationUrlRoot: `https://hodlersquest.xyz/iframe/`,
+                        animationUrlSuffix: ``,
+                    },
                 });
         }
 
