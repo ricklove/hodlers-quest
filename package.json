@@ -33,6 +33,7 @@
     "publish:client": "copyfiles -u 3 ./projects/hodlers-quest-react/build/**/* ./_release/web",
     "---metadata": "",
     "build:metadata": "cd ./packages/metadata-builder && npm run build",
+    "copy:metadata": "copyfiles -u 3 ./packages/metadata-builder/out/**/* ./_release/web/_metadata/",
     "---end": ""
   },
   "workspaces": [
