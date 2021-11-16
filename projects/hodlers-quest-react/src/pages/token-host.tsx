@@ -19,6 +19,9 @@ export const TokenHost = ({ tokenId }: { tokenId: string }) => {
             },
             showKeyboard: () => {
                 inputKeyboardRef.current?.focus();
+                setTimeout(() => {
+                    inputKeyboardRef.current?.focus();
+                }, 10);
             },
         });
     }, []);
