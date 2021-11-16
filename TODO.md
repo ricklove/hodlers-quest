@@ -1,7 +1,7 @@
-- [ ] React Site
+- [x] React Site
     - [x] Create home page
     - [x] Publish to Netlify
-    - [ ] Favicon, metadata, seo
+    - [x] Favicon, metadata, seo
 
 - [x] Setup Netlify
     - [x] Custom domain - HODLersQuest.xyz
