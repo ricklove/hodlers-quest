@@ -1,6 +1,6 @@
 import type p5 from 'p5';
 import { loadSvgPixelArtFromUrl } from './render/draw-svg-pixel-art';
-import { GameArt, GameStep, GameStepAction } from './types';
+import { GameArt, GameRenderMode, GameStep, GameStepAction } from './types';
 import { GameImage, loadAndScaleImage } from './utils/load-image';
 import { createRandomGenerator } from './utils/random';
 
@@ -32,6 +32,7 @@ export const drawGameStep = ({
     input,
     mode,
     autoPlayMode,
+    renderMode,
     settings,
     onStillLoading,
 }: {
@@ -45,6 +46,7 @@ export const drawGameStep = ({
     input: string;
     mode: 'step' | 'response';
     autoPlayMode: false | 'play' | 'step-image';
+    renderMode: undefined | GameRenderMode;
     settings: GameSettings;
     onStillLoading: () => void;
 }): { done: boolean } => {
@@ -343,7 +345,7 @@ export const drawGameStep = ({
             if (art?.svgName){
                 const FADE_CHAR_TIME = 2 * charsPerSecond;
                 const DISPLAY_CHAR_TIME = 5 * charsPerSecond;
-                const FADE_MAX = autoPlayMode === `step-image` ? 0.35 : 0.75;
+                const FADE_MAX = autoPlayMode === `step-image` ? 0 : 0.75;
 
                 const fadeInOpacity = charLength > FADE_CHAR_TIME ? 1 : (charLength / FADE_CHAR_TIME);
                 charLength -= DISPLAY_CHAR_TIME;
@@ -434,7 +436,8 @@ export const drawGameStep = ({
             if (alwaysDraw || isWaiting){
                 const waitText = !text ? ``
                     : !altText ? text
-                        : ((charLength / charsPerSecond * 1000) % 1000 < 500 ? text : altText);
+                        : autoPlayMode === 'step-image' ? altText 
+                            : ((charLength / charsPerSecond * 1000) % 1000 < 500 ? text : altText);
                 if (color){
                     s.fill(color);
                 }
@@ -486,28 +489,39 @@ export const drawGameStep = ({
             charLength = Number.MAX_SAFE_INTEGER;
         }
 
-        // Skip title typing
-        charLength += step.title.trim().length;
-        s.textAlign(`center`);
-        const titleColor = s.color(255, 255, 255);
-        if (!drawNextPart(step.title.trim(), drawTitleText, {
-            color: titleColor,
-            fontSize: FONT_SIZE_L,
-        }).done){
-            return { done: false };
+        if(renderMode !== 'image-only'){
+            // Skip title typing
+            charLength += step.title.trim().length;
+            s.textAlign(`center`);
+            const titleColor = s.color(255, 255, 255);
+            if (!drawNextPart(step.title.trim(), drawTitleText, {
+                color: titleColor,
+                fontSize: FONT_SIZE_L,
+            }).done){
+                return { done: false };
+            }
         }
 
         drawArt(step.art, mode === `step`);
 
-        s.textAlign(`left`);
-        if (!drawNextPart(step.description.trim(), drawDescriptionText, {
-            color: s.color(255, 255, 255),
-            fontSize: FONT_SIZE_M,
-        }).done){
+        if(renderMode === 'image-only' 
+        || renderMode === 'image-title'){
             return { done: false };
         }
-        if (!drawWaitMessage(1000).done){
-            return { done: false };
+
+
+        s.textAlign(`left`);
+
+        if(!renderMode?.includes('no-description')){
+            if (!drawNextPart(step.description.trim(), drawDescriptionText, {
+                color: s.color(255, 255, 255),
+                fontSize: FONT_SIZE_M,
+            }).done){
+                return { done: false };
+            }
+            if (!drawWaitMessage(1000).done){
+                return { done: false };
+            }
         }
 
         const drawActionInputSection = (
@@ -534,10 +548,12 @@ export const drawGameStep = ({
                 return { done: false };
             }
 
-
             if (autoPlayMode){
                 const action = actions[actionIndex ?? -1];
-                const commandText = action.name ?? ``;
+                const commandText = 
+                    renderMode === 'image-prompt' ? '' 
+                    : renderMode === 'image-prompt-no-description' ? '' 
+                    :  action.name ?? ``;
                 if (!drawNextPart(`> ${commandText}`, drawActionInputText, {
                     color: s.color(100, 255, 100),
                     fontSize: FONT_SIZE_M,
@@ -546,6 +562,7 @@ export const drawGameStep = ({
                     return { done: false };
                 }
 
+                // End of auto play mode
                 return { done: true };
             }
 
@@ -678,6 +695,7 @@ export type GameState = {
     input: string;
     mode: 'step' | 'response';
     autoPlayMode: false | 'play' | 'step-image';
+    renderMode?: GameRenderMode;
 };
 export const drawGame = ({
     gameState,
@@ -712,14 +730,21 @@ export const drawGame = ({
         if (gameState.stepIndex != null
             && gameState.actionIndex != null){
 
-            if (gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver){
-                // Show game over if it exists
-                gameState.mode = `response`;
-            } else if (gameData.story[(gameState.stepIndex || 0) + 1]) {
-                // Show next step if it exists
-                gameState.stepIndex = (gameState.stepIndex || 0) + 1;
-                gameState.actionIndex = undefined;
-                gameState.mode = `step`;
+            const renderModeToUse = gameState.renderMode !== 'image-default' ? gameState.renderMode
+                : gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver ? 'image-action-result'
+                : 'image-prompt-no-description';
+            gameState.renderMode = renderModeToUse;
+
+            if(gameState.renderMode === 'image-action-result'){
+                if (gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver){
+                    // Show game over if it exists
+                    gameState.mode = `response`;
+                } else if (gameData.story[(gameState.stepIndex || 0) + 1]) {
+                    // Show next step if it exists
+                    gameState.stepIndex = (gameState.stepIndex || 0) + 1;
+                    gameState.actionIndex = undefined;
+                    gameState.mode = `step`;
+                }
             }
         }
     }
@@ -731,6 +756,7 @@ export const drawGame = ({
         input = ``,
         mode,
         autoPlayMode,
+        renderMode,
     } = gameState;
 
     const step = gameData.story[stepIndex || 0] ?? undefined;
@@ -744,8 +770,8 @@ export const drawGame = ({
 
     const result = drawGameStep({
         step, gameCache, actionIndex, s,
-        timeMs, frame, tokenId, input, mode, autoPlayMode,
-        settings,
+        timeMs, frame, tokenId, input, mode, autoPlayMode, renderMode,
+        settings, 
         onStillLoading,
     });
 

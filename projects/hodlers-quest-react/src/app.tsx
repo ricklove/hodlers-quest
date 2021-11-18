@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from './components/layout';
 import { HomePage } from './pages/home-page';
+import { TokenArtPage } from './pages/token-art-page';
 import { TokenIframePage } from './pages/token-iframe-page';
 import { TokenPage } from './pages/token-page';
 
@@ -26,6 +27,16 @@ const Routing = (_props: {}) => {
   if (path === `iframe` && tokenId){
     return (
       <TokenIframePage tokenId={tokenId} isStaticImage={false}/>
+    );
+  }
+
+  if (path === `art` && tokenId){
+    return (
+      <Layout>
+        <div className='App'>
+            <TokenArtPage tokenId={tokenId}/>
+        </div>
+      </Layout>
     );
   }
 

@@ -37,9 +37,17 @@
     - [x] Generate json
     - [x] Publish generated assets into react site files
 
+- [ ] Color Palletes
+    - [ ] Instead of random color picker, select a color pallette
+
 - [ ] Publish Test Contract
     - [ ] Deploy to testnet
     - [ ] Test on open sea
+
+- [ ] Site Content
+    - [ ] Project Description
+    - [ ] Roadmap
+    - [ ] Features
 
 - [ ] Site: Mint Action NFT
     - [ ] View & Select Game Action

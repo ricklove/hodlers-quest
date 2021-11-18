@@ -40,3 +40,14 @@ export type GameStep<TInventory extends string = string> = {
      */
     actions: GameStepAction[];
 };
+
+export type GameRenderMode = 
+| 'image-default'
+| 'image-only'
+| 'image-title'
+| 'image-prompt'
+| 'image-prompt-no-description'
+| 'image-action'
+| 'image-action-no-description'
+| 'image-action-result'
+;

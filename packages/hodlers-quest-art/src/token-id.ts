@@ -19,7 +19,7 @@ export const getGameStepFromTokenId = (tokenId: string) => {
 };
 
 const tokenProjectIdMap = {
-    0: `0`,
+    0: `0:0`,
     1: `1:0`,
     2: `1:1`,
     3: `1:2`,

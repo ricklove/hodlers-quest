@@ -4,6 +4,7 @@ import { pixelFontBase64_pressStart } from './fonts/pixel-font-press-start';
 import { drawGame, GameCache, GameSettings, GameState } from './game-engine';
 import { createNftAdventure_nftTextAdventure } from './story';
 import { getGameStepFromTokenId } from './token-id';
+import { GameRenderMode } from './types';
 import { createEventProvider, EventProvider } from './utils/event-provider';
 
 const nftAdventure_nftDungeon = createNftAdventure_nftTextAdventure();
@@ -11,19 +12,19 @@ const nftAdventure_nftDungeon = createNftAdventure_nftTextAdventure();
 export const gameHost = {
     renderGame: ({
         tokenId = `0`,
-        isStaticImage,
+        renderMode,
         canvasScale = 1,
         createP5,
         showKeyboard,
     }: {
         tokenId: string;
-        isStaticImage: boolean;
+        renderMode?: GameRenderMode;
         canvasScale: number;
         createP5: (callback: (s: p5) => void) => void;
         showKeyboard: () => void;
     }) => {
 
-        const RENDERER: p5.RENDERER = isStaticImage ? `p2d` : `webgl`;
+        const RENDERER: p5.RENDERER = renderMode ? `p2d` : `webgl`;
 
         const TARGET_SIZE = 300 * canvasScale;
         const SMALL_SIZE = 300 * canvasScale;
@@ -46,6 +47,7 @@ export const gameHost = {
                             input: ``,
                             mode: `step`,
                             autoPlayMode: `step-image`,
+                            renderMode,
                         };
                         console.log(`globalControllerState.onDrawStart`, { gameState, stepIndex, actionIndex });
                     };
@@ -77,7 +79,8 @@ export const gameHost = {
             tokenId,
             input: ``,
             mode: `step`,
-            autoPlayMode: isStaticImage ? `step-image` : (stepIndexInit ?? 0) > 0 ? `play` : false,
+            autoPlayMode: renderMode ? `step-image` : (stepIndexInit ?? 0) > 0 ? `play` : false,
+            renderMode,
         };
 
         const gameCache = {} as GameCache;

@@ -6,7 +6,11 @@ export const TokenIframePage = ({ tokenId, isStaticImage }: { tokenId: string; i
 
     return (
         <div style={{ display: `flex`, width: `100%`, height: `100%`, justifyContent: `center`, alignItems: `center` }}>
-            <TokenHost tokenId={tokenId} isStaticImage={isStaticImage}/>
+            <TokenHost tokenId={tokenId}
+                renderMode={isStaticImage ? `image-default` : undefined}
+                canvasScale={isStaticImage ? 2 : undefined}
+                hideStyle={isStaticImage ? true : undefined}
+            />
         </div>
     );
 };
