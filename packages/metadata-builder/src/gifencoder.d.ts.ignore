@@ -1,0 +1,19 @@
+declare module 'gifencoder' {
+
+    export default class GIFEncoder {
+        constructor(width: number, height: number);
+        public start(): void;
+        public finish(): void;
+
+        public createReadStream(): { pipe:(stream: fs.WriteStream)=>void };
+
+        public addFrame(frameBuffer:Buffer): void;
+
+        /** 0 for repeat, -1 for no-repeat */
+        public setRepeat(repeatCount: 0): void;
+        /** frame delay in ms */
+        public setDelay(frameDelayMs: number): void;
+        /** image quality. 10 is default. */
+        public setQuality(imageQuality: 10): void;
+    }
+}

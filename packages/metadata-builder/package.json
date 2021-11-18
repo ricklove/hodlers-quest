@@ -9,9 +9,12 @@
         "build": "node --experimental-specifier-resolution=node --loader ts-node/esm ./src/cli.ts"
     },
     "dependencies": {
+        "gifencoder": "^2.0.1",
+        "png-js": "^1.0.0",
         "puppeteer": "~10.2.0"
     },
     "devDependencies": {
+        "@types/gifencoder": "^2.0.1",
         "@types/node": "12.12.6",
         "@types/puppeteer": "~5.4.4",
         "ts-node": "~10.2.1"

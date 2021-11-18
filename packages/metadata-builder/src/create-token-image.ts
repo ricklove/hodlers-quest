@@ -35,7 +35,7 @@ export const createTokenImages = async ({
       if (!c) {
         return;
       }
-      return c.loadTokenId(tokenId);
+      return c.loadTokenImage(tokenId, 'image-only');
     }, evaluateArgs);
 
     const filePath = path.join(destPath, `${Number(tokenId)}.png`);

@@ -9,7 +9,7 @@ export const TokenIframePage = ({ tokenId, renderMode }: { tokenId: string; rend
         <div style={{ display: `flex`, width: `100%`, height: `100%`, justifyContent: `center`, alignItems: `center` }}>
             <TokenHost tokenId={tokenId}
                 renderMode={renderMode}
-                canvasScale={renderMode ? 2 : undefined}
+                canvasScale={renderMode ? 1 : undefined}
                 hideStyle={renderMode ? true : undefined}
             />
         </div>

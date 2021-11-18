@@ -37,6 +37,10 @@
     - [x] Generate json
     - [x] Publish generated assets into react site files
 
+- [x] Improve Images
+    - [x] Preview All Images
+    - [x] Generate gif as primary image
+
 - [ ] Color Palletes
     - [ ] Instead of random color picker, select a color pallette
 

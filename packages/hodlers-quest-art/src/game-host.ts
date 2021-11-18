@@ -33,7 +33,7 @@ export const gameHost = {
 
         const windowGlobalController = window as unknown as GlobalArtControllerWindow;
         windowGlobalController.globalArtController = {
-            loadTokenImage: async (tokenIdNew, renderModeNew) => {
+            loadTokenImage: async (tokenIdNew, renderModeNew, stepIndexNew, actionIndexNew) => {
                 return await new Promise((resolve) => {
 
                     globalControllerState.onDrawStart = () => {
@@ -42,8 +42,8 @@ export const gameHost = {
                         const { stepIndex, actionIndex, tokenId } = getGameStepFromTokenId(tokenIdNew);
                         gameState = {
                             timeStartMs: now(),
-                            stepIndex,
-                            actionIndex,
+                            stepIndex: stepIndexNew ?? stepIndex,
+                            actionIndex : actionIndexNew ?? actionIndex,
                             tokenId,
                             input: ``,
                             mode: `step`,
