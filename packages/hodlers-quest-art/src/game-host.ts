@@ -11,7 +11,7 @@ const nftAdventure_nftDungeon = createNftAdventure_nftTextAdventure();
 
 export const gameHost = {
     renderGame: ({
-        tokenId = `0`,
+        tokenId: tokenIdRaw = `0`,
         renderMode,
         canvasScale = 1,
         createP5,
@@ -30,24 +30,25 @@ export const gameHost = {
         const SMALL_SIZE = 320 * canvasScale;
         const size = window.innerWidth > TARGET_SIZE && window.innerHeight > TARGET_SIZE ? TARGET_SIZE : SMALL_SIZE;
 
+
         const windowGlobalController = window as unknown as GlobalArtControllerWindow;
         windowGlobalController.globalArtController = {
-            loadTokenId: async (tokenIdNew) => {
+            loadTokenImage: async (tokenIdNew, renderModeNew) => {
                 return await new Promise((resolve) => {
 
                     globalControllerState.onDrawStart = () => {
                         globalControllerState.onDrawStart = null;
 
-                        const { stepIndex, actionIndex } = getGameStepFromTokenId(tokenIdNew);
+                        const { stepIndex, actionIndex, tokenId } = getGameStepFromTokenId(tokenIdNew);
                         gameState = {
                             timeStartMs: now(),
                             stepIndex,
                             actionIndex,
-                            tokenId: tokenIdNew,
+                            tokenId,
                             input: ``,
                             mode: `step`,
                             autoPlayMode: `step-image`,
-                            renderMode,
+                            renderMode: renderModeNew,
                         };
                         console.log(`globalControllerState.onDrawStart`, { gameState, stepIndex, actionIndex });
                     };
@@ -66,7 +67,7 @@ export const gameHost = {
 
         let canvas = null as null | HTMLCanvasElement;
         let eventProvider = null as null | EventProvider;
-        const { stepIndex: stepIndexInit, actionIndex: actionIndexInit } = getGameStepFromTokenId(tokenId);
+        const { stepIndex: stepIndexInit, actionIndex: actionIndexInit, tokenId: tokenIdInit } = getGameStepFromTokenId(tokenIdRaw);
 
         const now = () => {
             return Date.now();
@@ -76,7 +77,7 @@ export const gameHost = {
             timeStartMs: now(),
             stepIndex: stepIndexInit,
             actionIndex: actionIndexInit,
-            tokenId,
+            tokenId: tokenIdInit,
             input: ``,
             mode: `step`,
             autoPlayMode: renderMode ? `step-image` : (stepIndexInit ?? 0) > 0 ? `play` : false,

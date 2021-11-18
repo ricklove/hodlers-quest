@@ -1,10 +1,12 @@
-export const getGameStepFromTokenId = (tokenId: string) => {
+export const getGameStepFromTokenId = (tokenIdRaw: number | string) => {
 
+        const tokenId = `${parseInt(tokenIdRaw + '', 10)}`;
         const projectId = parseInt(tokenId.substr(0, tokenId.length - 6), 10) as keyof typeof tokenProjectIdMap;
-        const stepAction = tokenProjectIdMap[projectId];
+        const stepAction = tokenProjectIdMap[projectId||0];
 
         if (!stepAction){
             return {
+                tokenId: '0',
                 stepIndexInit: 0,
                 actionIndexInit: 0,
             };
@@ -13,6 +15,7 @@ export const getGameStepFromTokenId = (tokenId: string) => {
         const [stepIndex, actionIndex] = stepAction.split(`:`).map(x => parseInt(x, 10) as undefined | number);
         // console.log(`getGameStepFromTokenId`, { stepIndexInit: stepIndex, actionIndexInit: actionIndex });
         return {
+            tokenId,
             stepIndex,
             actionIndex,
         };

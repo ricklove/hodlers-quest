@@ -1,5 +1,7 @@
+import { GameRenderMode } from "./game-render-mode";
+
 export type GlobalArtControllerWindow = {
     ['globalArtController']: {
-      loadTokenId: (tokenId: string) => Promise<void>;
+      loadTokenImage: (tokenId: string, renderMode: GameRenderMode) => Promise<void>;
     };
 };
