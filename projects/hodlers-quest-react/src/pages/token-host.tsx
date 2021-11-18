@@ -9,9 +9,9 @@ export const TokenHost = ({ tokenId, renderMode, canvasScale: canvasScaleOverrid
     const inputKeyboardRef = useRef(null as null | HTMLInputElement);
 
     const canvasScale = canvasScaleOverride ? canvasScaleOverride
-        : window.innerWidth >= 900 && window.innerHeight >= 900 ? 3
-        : window.innerWidth >= 600 && window.innerHeight >= 600 ? 2
-        : window.innerWidth >= 450 && window.innerHeight >= 450 ? 1.5
+        : window.innerWidth >= 320 * 3.0 && window.innerHeight >= 320 * 3.0 ? 3.0
+        : window.innerWidth >= 320 * 2.0 && window.innerHeight >= 320 * 2.0 ? 2.0
+        : window.innerWidth >= 320 * 1.5 && window.innerHeight >= 320 * 1.5 ? 1.5
         : 1;
 
     useEffect(() => {
