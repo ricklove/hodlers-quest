@@ -5,7 +5,6 @@ export const TokenArtPage = ({ tokenId }: { tokenId: string }) => {
 
     return (
         <div style={{ display: `flex`, flexDirection: `row`, flexWrap: `wrap` }}>
-            <TokenArtItem tokenId={tokenId} renderMode={`image-default`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-only`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-title`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-description`}/>

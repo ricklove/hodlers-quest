@@ -42,7 +42,6 @@ export type GameStep<TInventory extends string = string> = {
 };
 
 export type GameRenderMode = 
-| 'image-default'
 | 'image-only'
 | 'image-title'
 | 'image-description'

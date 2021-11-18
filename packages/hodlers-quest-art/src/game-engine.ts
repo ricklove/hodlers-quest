@@ -679,6 +679,17 @@ export const drawGameStep = ({
                 }
             }
 
+            if (autoPlayMode === `step-image`){
+                s.textAlign(`center`);
+                if (!drawNextPart(`NEXT`, drawActionInputText, {
+                    color: responseColor,
+                    fontSize: FONT_SIZE_L,
+                }).done){
+                    return { done: false };
+                }
+
+                return { done: true };
+            }
         }
 
 
@@ -736,6 +747,7 @@ export const drawGame = ({
     if (gameState.input){
         gameState.timeStartMs = 1;
         gameState.autoPlayMode = false;
+        gameState.renderMode = undefined;
     }
 
     if (gameState.autoPlayMode === `step-image`){
@@ -744,13 +756,6 @@ export const drawGame = ({
 
         if (gameState.stepIndex != null
             && gameState.actionIndex != null){
-
-            const renderModeToUse = gameState.renderMode !== 'image-default' ? gameState.renderMode
-                // : gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver ? 'image-action-result'
-                // : 'image-action-no-description'
-                : 'image-action-result'
-                ;
-            gameState.renderMode = renderModeToUse;
 
             if(gameState.renderMode === 'image-action-result'){
                 // if(gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver === false

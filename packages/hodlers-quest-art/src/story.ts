@@ -48,7 +48,7 @@ What kind of prize lies in wait for those who can find it?
         actions: [
             {
                 name: `play`,
-                description: `You decide to play...`,
+                description: `You decide to play along...`,
                 result: { gameOver: false },
             },
         ],

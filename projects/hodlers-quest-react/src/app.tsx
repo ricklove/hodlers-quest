@@ -20,13 +20,13 @@ const Routing = (_props: {}) => {
 
   if (path === `image` && tokenId){
     return (
-      <TokenIframePage tokenId={tokenId} isStaticImage={true}/>
+      <TokenIframePage tokenId={tokenId} renderMode={`image-only`}/>
     );
   }
 
   if (path === `iframe` && tokenId){
     return (
-      <TokenIframePage tokenId={tokenId} isStaticImage={false}/>
+      <TokenIframePage tokenId={tokenId}/>
     );
   }
 
