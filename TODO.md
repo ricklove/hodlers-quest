@@ -41,23 +41,28 @@
     - [x] Preview All Images
     - [x] Generate gif as primary image
 
-- [ ] Color Palletes
-    - [ ] Instead of random color picker, select a color pallette
-
 - [ ] Publish Test Contract
     - [ ] Deploy to testnet
     - [ ] Test on open sea
 
-- [ ] Site Content
-    - [ ] Project Description
-    - [ ] Roadmap
-    - [ ] Features
+- [ ] Improve json
+    - [ ] Add action name in name
+    - [ ] Add story in description
+    - [ ] Add all metadata attributes
 
 - [ ] Site: Mint Action NFT
     - [ ] View & Select Game Action
     - [ ] Mint Action NFT on web site
     - [ ] View NFT Reveal Countdown
     - [ ] View Final NFT Artwork after release
+
+- [ ] Site Content
+    - [ ] Project Description
+    - [ ] Roadmap
+    - [ ] Features
+
+- [ ] Color Palletes
+    - [ ] Instead of random color picker, select a color pallette
 
 - [ ] Publish Contract to Main net
     - [ ] Create contract publishing page (use MetaMask/Ledger Auth instead of privateKey)
