@@ -26,8 +26,8 @@ export const gameHost = {
 
         const RENDERER: p5.RENDERER = renderMode ? `p2d` : `webgl`;
 
-        const TARGET_SIZE = 300 * canvasScale;
-        const SMALL_SIZE = 300 * canvasScale;
+        const TARGET_SIZE = 320 * canvasScale;
+        const SMALL_SIZE = 320 * canvasScale;
         const size = window.innerWidth > TARGET_SIZE && window.innerHeight > TARGET_SIZE ? TARGET_SIZE : SMALL_SIZE;
 
         const windowGlobalController = window as unknown as GlobalArtControllerWindow;

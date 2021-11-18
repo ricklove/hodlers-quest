@@ -48,7 +48,7 @@ What kind of prize lies in wait for those who can find it?
         actions: [
             {
                 name: `play`,
-                description: ``,
+                description: `You decide to play...`,
                 result: { gameOver: false },
             },
         ],
@@ -102,31 +102,31 @@ There is no way you can escape...
             {
                 name: `listen`,
                 description: `You carefully listen without making a sound...`,
-                // result: { gameOver: false },
+                result: { gameOver: false },
             },
         ],
     },
-//     {
-//         title: `Whispers`,
-//         art: { svgName: `cold` },
-//         description: `
+    {
+        title: `Whispers`,
+        art: { svgName: `cold` },
+        description: `
 
-// In the distance, you hear the slight brookling of water flowing over stones, but nothing else at first.
+In the distance, you hear the slight brookling of water flowing over stones, but nothing else at first.
 
-// Then, you hear something you did not expect, a whisper in your ear that says:
+Then, you hear something you did not expect, a whisper in your ear that says:
 
-// "Do not move... They will see you..."`,
-//         glitch: {
-//             ratio: 0.03,
-//             messages: [`HELP ME!`, `Who are you?`, `What are you?`, `How are you?`, `Where are you?`, `Why are you?`, `I'm cold`, `I'm alone`, `I'm afraid`],
-//         },
-//         inventory: [],
-//         actions: [
-//             { name: `remain still`, description: `You decide not moving is a good idea for now...` },
-//             { name: `move away`, description: `You jerk away from the whisper...` },
-//             { name: `stand up`, description: `You push yourself off the ground...` },
-//         ],
-//     },
+"Do not move... They will see you..."`,
+        glitch: {
+            ratio: 0.03,
+            messages: [`HELP ME!`, `Who are you?`, `What are you?`, `How are you?`, `Where are you?`, `Why are you?`, `I'm cold`, `I'm alone`, `I'm afraid`],
+        },
+        inventory: [],
+        actions: [
+            { name: `remain still`, description: `You decide not moving is a good idea for now...` },
+            { name: `move away`, description: `You jerk away from the whisper...` },
+            { name: `stand up`, description: `You push yourself off the ground...` },
+        ],
+    },
 ];
 
 export const createNftAdventure_nftTextAdventure = () => {

@@ -45,6 +45,7 @@ export type GameRenderMode =
 | 'image-default'
 | 'image-only'
 | 'image-title'
+| 'image-description'
 | 'image-prompt'
 | 'image-prompt-no-description'
 | 'image-action'

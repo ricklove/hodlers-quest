@@ -31,13 +31,13 @@ export const TokenHost = ({ tokenId, renderMode, canvasScale: canvasScaleOverrid
     }, []);
 
     return (
-        <div style={hideStyle ? {} : { margin: 2, boxShadow: `0px 0px 1px 0px #FFFFFF`, borderRadius: 0 }}>
+        <div style={hideStyle ? {} : { boxShadow: `0px 0px 1px 0px #FFFFFF`, borderRadius: 0 }}>
             <div
-                style={{ width: 300 * canvasScale, height: 300 * canvasScale, position: `relative` }}
+                style={{ width: 320 * canvasScale, height: 320 * canvasScale, position: `relative` }}
             >
                 <input type='text' ref={inputKeyboardRef}
                     style={{
-                        width: 300 * canvasScale, height: 300 * canvasScale,
+                        width: 320 * canvasScale, height: 320 * canvasScale,
                         opacity: 0,
                         position: `absolute`,
                         left: 0, bottom: 0,
@@ -51,7 +51,7 @@ export const TokenHost = ({ tokenId, renderMode, canvasScale: canvasScaleOverrid
                     autoFocus={true}
                     />
                 <div ref={hostRef}
-                    style={{ width: 300 * canvasScale, height: 300 * canvasScale }} />
+                    style={{ width: 320 * canvasScale, height: 320 * canvasScale }} />
 
             </div>
         </div>

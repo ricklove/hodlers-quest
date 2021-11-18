@@ -261,10 +261,15 @@ export const drawGameStep = ({
             // lineCount += (PAD * 2 + h) / LINE_HEIGHT;
         };
         const drawSvgArt = (svgName: string, opacity = 1) => {
-            const xTarget = PAD;
-            const yTarget = PAD + +3 + 2 * LINE_HEIGHT;
-            const wTarget = PAD * -1 + frame.width - (PAD);
-            const hTarget = PAD * -1 + frame.height - (PAD + +3 + 2 * LINE_HEIGHT);
+            // const xTarget = PAD;
+            // const yTarget = PAD + +3 + 2 * LINE_HEIGHT;
+            // const wTarget = PAD * -1 + frame.width - (PAD);
+            // const hTarget = PAD * -1 + frame.height - (PAD + +3 + 2 * LINE_HEIGHT);
+
+            const xTarget = 0;
+            const yTarget = 0;
+            const wTarget = frame.width;
+            const hTarget = frame.height;
 
             const svgImageKey = `${svgName}${tokenId}`;
             if (!gameCache.svgImages){ gameCache.svgImages = {};}
@@ -313,7 +318,7 @@ export const drawGameStep = ({
             // lineCount += (PAD * 2 + h) / LINE_HEIGHT;
         };
 
-        const drawArt = (art: undefined | GameArt, alwaysDraw: boolean) => {
+        const drawArt = (art: undefined | GameArt, alwaysDraw: boolean, opacityOverride?: number) => {
 
             // if (art?.ascii){
             //     if (!drawWaitMessage(5000, art.ascii, art.ascii, drawAsciiArtText, {
@@ -345,13 +350,13 @@ export const drawGameStep = ({
             if (art?.svgName){
                 const FADE_CHAR_TIME = 2 * charsPerSecond;
                 const DISPLAY_CHAR_TIME = 5 * charsPerSecond;
-                const FADE_MAX = autoPlayMode === `step-image` ? 0 : 0.75;
+                const FADE_MAX = autoPlayMode === `step-image` ? 0.75 : 0.75;
 
                 const fadeInOpacity = charLength > FADE_CHAR_TIME ? 1 : (charLength / FADE_CHAR_TIME);
                 charLength -= DISPLAY_CHAR_TIME;
                 const fadeOutOpacity = charLength <= 0 ? 1 : (1.0 - FADE_MAX * Math.min(1, charLength / FADE_CHAR_TIME));
 
-                const opacity = Math.min(fadeInOpacity, fadeOutOpacity);
+                const opacity = opacityOverride ?? Math.min(fadeInOpacity, fadeOutOpacity);
                 if (alwaysDraw || charLength < 0){
                     drawSvgArt(art.svgName, opacity);
                 }
@@ -502,7 +507,13 @@ export const drawGameStep = ({
             }
         }
 
-        drawArt(step.art, mode === `step`);
+        const imageOpacity = false
+            || renderMode === 'image-only'
+            || renderMode === 'image-title'
+            || renderMode === 'image-prompt-no-description'
+            || renderMode === 'image-action-no-description'
+            ? 1 : undefined;
+        drawArt(step.art, mode === `step`, imageOpacity);
 
         if(renderMode === 'image-only' 
         || renderMode === 'image-title'){
@@ -522,6 +533,10 @@ export const drawGameStep = ({
             if (!drawWaitMessage(1000).done){
                 return { done: false };
             }
+        }
+
+        if(renderMode === 'image-description'){
+            return { done: false };
         }
 
         const drawActionInputSection = (
@@ -731,20 +746,23 @@ export const drawGame = ({
             && gameState.actionIndex != null){
 
             const renderModeToUse = gameState.renderMode !== 'image-default' ? gameState.renderMode
-                : gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver ? 'image-action-result'
-                : 'image-prompt-no-description';
+                // : gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver ? 'image-action-result'
+                // : 'image-action-no-description'
+                : 'image-action-result'
+                ;
             gameState.renderMode = renderModeToUse;
 
             if(gameState.renderMode === 'image-action-result'){
-                if (gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver){
-                    // Show game over if it exists
+                // if(gameData.story[gameState.stepIndex]?.actions[gameState.actionIndex].result?.gameOver === false
+                //     && gameData.story[(gameState.stepIndex || 0) + 1]){
+                //     // Show next step if result is successful
+                //     gameState.stepIndex = (gameState.stepIndex || 0) + 1;
+                //     gameState.actionIndex = undefined;
+                //     gameState.mode = `step`;
+                //     gameState.renderMode ='image-title';
+                // }else{
                     gameState.mode = `response`;
-                } else if (gameData.story[(gameState.stepIndex || 0) + 1]) {
-                    // Show next step if it exists
-                    gameState.stepIndex = (gameState.stepIndex || 0) + 1;
-                    gameState.actionIndex = undefined;
-                    gameState.mode = `step`;
-                }
+                // }
             }
         }
     }

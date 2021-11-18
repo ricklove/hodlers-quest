@@ -8,10 +8,11 @@ export const TokenArtPage = ({ tokenId }: { tokenId: string }) => {
             <TokenArtItem tokenId={tokenId} renderMode={`image-default`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-only`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-title`}/>
+            <TokenArtItem tokenId={tokenId} renderMode={`image-description`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-prompt`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-prompt-no-description`}/>
             <TokenArtItem tokenId={tokenId} renderMode={`image-action`}/>
-            <TokenArtItem tokenId={tokenId} renderMode={`image-action-no-description`}/>
+            {/* <TokenArtItem tokenId={tokenId} renderMode={`image-action-no-description`}/> */}
             <TokenArtItem tokenId={tokenId} renderMode={`image-action-result`}/>
         </div>
     );
@@ -20,8 +21,8 @@ export const TokenArtPage = ({ tokenId }: { tokenId: string }) => {
 const TokenArtItem = ({ tokenId, renderMode }: { tokenId: string; renderMode: GameRenderMode }) => {
 
     return (
-        <div>
-            <div>{renderMode}</div>
+        <div style={{ margin: 4 }}>
+            <div style={{ margin: 4 }}>{renderMode}</div>
             <TokenHost tokenId={tokenId} canvasScale={1} renderMode={renderMode}/>
         </div>
     );
