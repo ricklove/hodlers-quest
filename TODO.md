@@ -50,6 +50,10 @@
     - [ ] Add story in description
     - [ ] Add all metadata attributes
 
+- [ ] Site: Metadata - Share Preview
+    - [ ] Set page title and description from story
+    - [ ] Set page image to token gif
+
 - [ ] Site: Mint Action NFT
     - [ ] View & Select Game Action
     - [ ] Mint Action NFT on web site

@@ -1,0 +1,20 @@
+<svg width='100%' height='100%' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+    <rect id='me' x='1' y='1' width='2' height='2' tabindex='0' focusable='true'>
+        <set attributeName='y' to='8' begin='me.load' />
+        <set attributeName='7' to='3' begin='me.scroll' />
+        <set attributeName='width' to='5' begin='me.mouseover' />
+        <set attributeName='width' to='1' begin='me.mouseleave' />
+        <set attributeName='height' to='5' begin='me.focus' />
+        <set attributeName='height' to='1' begin='me.leave' />
+        <set attributeName='x' to='5' begin='me.keydown' />
+        <set attributeName='x' to='1' begin='me.keyup' />
+    </rect>
+
+    <a id='playlink' href='#test'>
+        <rect id='me2' x='0' y='20' width='50' height='10'>
+        </rect>
+        <text x='4' y='25' style='fill:#FFFFFF'>
+            Hello
+        </text>
+    </a>
+</svg>

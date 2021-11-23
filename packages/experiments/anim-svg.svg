@@ -1,0 +1,45 @@
+<svg width='100%' height='100%' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+    <filter id='blurMe'>
+        <feGaussianBlur in='SourceGraphic' stdDeviation='1' />
+    </filter>
+    <clipPath id="myClip" clipPathUnits="objectBoundingBox">
+        <rect id='rect1' width='0' height='1'>
+            <animate
+                attributeName='width'
+                by='0.2'
+                dur='1s'
+                accumulate='true'
+                calcMode='discrete'
+                repeatCount='5'/>
+        </rect>
+    </clipPath>
+    <style>
+        text {
+            background: #00FF00;
+            font-size: 2px;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+    </style>
+    <g transform='translate(5,5)'>
+        <g>
+            <text x='10' clip-path="url(#myClip)">
+                Hello
+            </text>
+            <rect id='rect1' width='8' height='8' 
+                style='stroke:#000000; fill:none; box-shadow: 10px 5px 5px #00FF00;'
+            />
+            <circle cx='0' cy='0' 
+                r='10' transform='scale(0.25)'
+                fill='green'
+                filter='url(#blurMe)' />
+            <animateTransform 
+                attributeName='transform'
+                type='translate'
+                by='1 1'
+                dur='10s'
+                repeatCount='indefinite'/>
+        </g>
+    </g>
+</svg>
